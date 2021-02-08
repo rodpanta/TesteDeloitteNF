@@ -1,0 +1,204 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DeloitteNFModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Clientes">
+    <Key>
+      <PropertyRef Name="Cliente_id" />
+    </Key>
+    <Property Name="Cliente_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nome" Type="varchar" MaxLength="1000" />
+    <Property Name="Endereço" Type="varchar" MaxLength="1000" />
+    <Property Name="Tipo" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Fornecedores">
+    <Key>
+      <PropertyRef Name="Fornecedor_id" />
+    </Key>
+    <Property Name="Fornecedor_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nome" Type="varchar" MaxLength="500" />
+  </EntityType>
+  <EntityType Name="ItensNotasFiscais">
+    <Key>
+      <PropertyRef Name="ItemNotaFiscal_id" />
+    </Key>
+    <Property Name="ItemNotaFiscal_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="NotaFiscal_id" Type="int" Nullable="false" />
+    <Property Name="Produto_id" Type="int" Nullable="false" />
+    <Property Name="Quantidade" Type="int" Nullable="false" />
+    <Property Name="Total" Type="decimal" Precision="18" Scale="5" Nullable="false" />
+  </EntityType>
+  <EntityType Name="NotasFiscais">
+    <Key>
+      <PropertyRef Name="NotaFiscal_id" />
+    </Key>
+    <Property Name="NotaFiscal_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Cliente_id" Type="int" Nullable="false" />
+    <Property Name="Data" Type="datetime" Nullable="false" />
+    <Property Name="Emitida" Type="bit" />
+  </EntityType>
+  <EntityType Name="Produtos">
+    <Key>
+      <PropertyRef Name="Produto_id" />
+    </Key>
+    <Property Name="Produto_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nome" Type="varchar" MaxLength="500" />
+    <Property Name="Unidade" Type="varchar" MaxLength="50" />
+    <Property Name="Preco" Type="decimal" Precision="18" Scale="5" />
+    <Property Name="Fornecedor_id" Type="int" />
+  </EntityType>
+  <Association Name="FK_ItensNotasFiscais_NotasFiscais">
+    <End Role="NotasFiscais" Type="Self.NotasFiscais" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="ItensNotasFiscais" Type="Self.ItensNotasFiscais" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="NotasFiscais">
+        <PropertyRef Name="NotaFiscal_id" />
+      </Principal>
+      <Dependent Role="ItensNotasFiscais">
+        <PropertyRef Name="NotaFiscal_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ItensNotasFiscais_Produtos">
+    <End Role="Produtos" Type="Self.Produtos" Multiplicity="1" />
+    <End Role="ItensNotasFiscais" Type="Self.ItensNotasFiscais" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Produtos">
+        <PropertyRef Name="Produto_id" />
+      </Principal>
+      <Dependent Role="ItensNotasFiscais">
+        <PropertyRef Name="Produto_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_NotasFiscais_Clientes">
+    <End Role="Clientes" Type="Self.Clientes" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="NotasFiscais" Type="Self.NotasFiscais" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Clientes">
+        <PropertyRef Name="Cliente_id" />
+      </Principal>
+      <Dependent Role="NotasFiscais">
+        <PropertyRef Name="Cliente_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Produtos_Fornecedores">
+    <End Role="Fornecedores" Type="Self.Fornecedores" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Produtos" Type="Self.Produtos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Fornecedores">
+        <PropertyRef Name="Fornecedor_id" />
+      </Principal>
+      <Dependent Role="Produtos">
+        <PropertyRef Name="Fornecedor_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="ClientsDelete" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Clienteid" Type="int" Mode="In" />
+  </Function>
+  <Function Name="ClientsId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Clienteid" Type="int" Mode="In" />
+  </Function>
+  <Function Name="ClientsInsert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Nome" Type="varchar" Mode="In" />
+    <Parameter Name="Endereco" Type="varchar" Mode="In" />
+    <Parameter Name="Tipo" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="ClientsList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="ClientsUpdate" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ClienteId" Type="int" Mode="In" />
+    <Parameter Name="Nome" Type="varchar" Mode="In" />
+    <Parameter Name="Endereco" Type="varchar" Mode="In" />
+    <Parameter Name="Tipo" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="InvoiceDelete" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="NotaFiscalid" Type="int" Mode="In" />
+  </Function>
+  <Function Name="InvoiceEmitir" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="NotaFiscalid" Type="int" Mode="In" />
+  </Function>
+  <Function Name="InvoiceId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="NotaFiscalid" Type="int" Mode="In" />
+  </Function>
+  <Function Name="InvoiceInsert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Clienteid" Type="int" Mode="In" />
+  </Function>
+  <Function Name="InvoiceItemList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="NotaFiscalid" Type="int" Mode="In" />
+  </Function>
+  <Function Name="InvoiceItemsDelete" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ItemNotaFiscalid" Type="int" Mode="In" />
+  </Function>
+  <Function Name="InvoiceItemsInsert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="NotaFiscalid" Type="int" Mode="In" />
+    <Parameter Name="Produtoid" Type="int" Mode="In" />
+    <Parameter Name="Quantidade" Type="int" Mode="In" />
+    <Parameter Name="Preco" Type="decimal" Mode="In" />
+  </Function>
+  <Function Name="InvoiceList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="InvoiceListBestCustomers" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="InvoiceListProductsSales" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="ProductsDelete" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Productid" Type="int" Mode="In" />
+  </Function>
+  <Function Name="ProductsId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Produtoid" Type="int" Mode="In" />
+  </Function>
+  <Function Name="ProductsInsert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Nome" Type="varchar" Mode="In" />
+    <Parameter Name="Unidade" Type="varchar" Mode="In" />
+    <Parameter Name="Preco" Type="decimal" Mode="In" />
+    <Parameter Name="Fornecedorid" Type="int" Mode="In" />
+  </Function>
+  <Function Name="ProductsList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="ProductsUpdate" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Produtoid" Type="int" Mode="In" />
+    <Parameter Name="Nome" Type="varchar" Mode="In" />
+    <Parameter Name="Unidade" Type="varchar" Mode="In" />
+    <Parameter Name="Preco" Type="decimal" Mode="In" />
+    <Parameter Name="Fornecedorid" Type="int" Mode="In" />
+  </Function>
+  <Function Name="ProviderList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="ProvidersDelete" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Fornecedorid" Type="int" Mode="In" />
+  </Function>
+  <Function Name="ProvidersId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Fornecedorid" Type="int" Mode="In" />
+  </Function>
+  <Function Name="ProvidersInsert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Nome" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="ProvidersUpdate" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="FornecedorId" Type="int" Mode="In" />
+    <Parameter Name="Nome" Type="varchar" Mode="In" />
+  </Function>
+  <EntityContainer Name="DeloitteNFModelStoreContainer">
+    <EntitySet Name="Clientes" EntityType="Self.Clientes" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Fornecedores" EntityType="Self.Fornecedores" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ItensNotasFiscais" EntityType="Self.ItensNotasFiscais" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="NotasFiscais" EntityType="Self.NotasFiscais" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Produtos" EntityType="Self.Produtos" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_ItensNotasFiscais_NotasFiscais" Association="Self.FK_ItensNotasFiscais_NotasFiscais">
+      <End Role="NotasFiscais" EntitySet="NotasFiscais" />
+      <End Role="ItensNotasFiscais" EntitySet="ItensNotasFiscais" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ItensNotasFiscais_Produtos" Association="Self.FK_ItensNotasFiscais_Produtos">
+      <End Role="Produtos" EntitySet="Produtos" />
+      <End Role="ItensNotasFiscais" EntitySet="ItensNotasFiscais" />
+    </AssociationSet>
+    <AssociationSet Name="FK_NotasFiscais_Clientes" Association="Self.FK_NotasFiscais_Clientes">
+      <End Role="Clientes" EntitySet="Clientes" />
+      <End Role="NotasFiscais" EntitySet="NotasFiscais" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Produtos_Fornecedores" Association="Self.FK_Produtos_Fornecedores">
+      <End Role="Fornecedores" EntitySet="Fornecedores" />
+      <End Role="Produtos" EntitySet="Produtos" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

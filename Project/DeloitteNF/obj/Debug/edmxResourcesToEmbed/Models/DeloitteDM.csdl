@@ -1,0 +1,100 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DeloitteModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Clientes">
+    <Key>
+      <PropertyRef Name="Cliente_id" />
+    </Key>
+    <Property Name="Cliente_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nome" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+    <Property Name="Endereço" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+    <Property Name="Tipo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="Fornecedores">
+    <Key>
+      <PropertyRef Name="Fornecedor_id" />
+    </Key>
+    <Property Name="Fornecedor_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nome" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="FornecedorxProduto" Relationship="Self.FK_FornecedorxProduto_Fornecedores" FromRole="Fornecedores" ToRole="FornecedorxProduto" />
+  </EntityType>
+  <EntityType Name="Produtos">
+    <Key>
+      <PropertyRef Name="Produto_id" />
+    </Key>
+    <Property Name="Produto_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nome" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="Unidade" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="FornecedorxProduto" Relationship="Self.FK_FornecedorxProduto_Produtos" FromRole="Produtos" ToRole="FornecedorxProduto" />
+  </EntityType>
+  <EntityType Name="FornecedorxProduto">
+    <Key>
+      <PropertyRef Name="Produto_id" />
+      <PropertyRef Name="Fornecedor_id" />
+    </Key>
+    <Property Name="Produto_id" Type="Int32" Nullable="false" />
+    <Property Name="Fornecedor_id" Type="Int32" Nullable="false" />
+    <Property Name="Preco" Type="Decimal" Precision="18" Scale="0" />
+    <NavigationProperty Name="Fornecedores" Relationship="Self.FK_FornecedorxProduto_Fornecedores" FromRole="FornecedorxProduto" ToRole="Fornecedores" />
+    <NavigationProperty Name="Produtos" Relationship="Self.FK_FornecedorxProduto_Produtos" FromRole="FornecedorxProduto" ToRole="Produtos" />
+  </EntityType>
+  <Association Name="FK_FornecedorxProduto_Fornecedores">
+    <End Role="Fornecedores" Type="Self.Fornecedores" Multiplicity="1" />
+    <End Role="FornecedorxProduto" Type="Self.FornecedorxProduto" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Fornecedores">
+        <PropertyRef Name="Fornecedor_id" />
+      </Principal>
+      <Dependent Role="FornecedorxProduto">
+        <PropertyRef Name="Fornecedor_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_FornecedorxProduto_Produtos">
+    <End Role="Produtos" Type="Self.Produtos" Multiplicity="1" />
+    <End Role="FornecedorxProduto" Type="Self.FornecedorxProduto" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Produtos">
+        <PropertyRef Name="Produto_id" />
+      </Principal>
+      <Dependent Role="FornecedorxProduto">
+        <PropertyRef Name="Produto_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="DeloitteNFEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Clientes" EntityType="Self.Clientes" />
+    <EntitySet Name="Fornecedores" EntityType="Self.Fornecedores" />
+    <EntitySet Name="Produtos" EntityType="Self.Produtos" />
+    <EntitySet Name="FornecedorxProduto" EntityType="Self.FornecedorxProduto" />
+    <AssociationSet Name="FK_FornecedorxProduto_Fornecedores" Association="Self.FK_FornecedorxProduto_Fornecedores">
+      <End Role="Fornecedores" EntitySet="Fornecedores" />
+      <End Role="FornecedorxProduto" EntitySet="FornecedorxProduto" />
+    </AssociationSet>
+    <AssociationSet Name="FK_FornecedorxProduto_Produtos" Association="Self.FK_FornecedorxProduto_Produtos">
+      <End Role="Produtos" EntitySet="Produtos" />
+      <End Role="FornecedorxProduto" EntitySet="FornecedorxProduto" />
+    </AssociationSet>
+    <FunctionImport Name="ClientsList" ReturnType="Collection(DeloitteModel.ClientsList_Result)" />
+    <FunctionImport Name="ProviderList" ReturnType="Collection(DeloitteModel.ProviderList_Result)" />
+    <FunctionImport Name="stp_ClientesList" EntitySet="Clientes" ReturnType="Collection(DeloitteModel.Clientes)" />
+    <FunctionImport Name="stp_ProviderList" EntitySet="Fornecedores" ReturnType="Collection(DeloitteModel.Fornecedores)" />
+    <FunctionImport Name="ProductsList" />
+    <FunctionImport Name="stp_ProductsRespList" ReturnType="Collection(DeloitteModel.stp_ProductsRespList_Result)" />
+  </EntityContainer>
+  <ComplexType Name="ClientsList_Result">
+    <Property Type="Int32" Name="Cliente_id" Nullable="false" />
+    <Property Type="String" Name="Nome" Nullable="true" MaxLength="1000" />
+    <Property Type="String" Name="Endereço" Nullable="true" MaxLength="1000" />
+    <Property Type="String" Name="Tipo" Nullable="true" MaxLength="50" />
+  </ComplexType>
+  <ComplexType Name="ProviderList_Result">
+    <Property Type="Int32" Name="Fornecedor_id" Nullable="false" />
+    <Property Type="String" Name="Nome" Nullable="true" MaxLength="500" />
+  </ComplexType>
+  <ComplexType Name="stp_ProductsRespList_Result">
+    <Property Type="String" Name="nomefornec" Nullable="true" MaxLength="500" />
+    <Property Type="String" Name="nomeprod" Nullable="true" MaxLength="500" />
+    <Property Type="String" Name="Unidade" Nullable="true" MaxLength="50" />
+    <Property Type="Decimal" Name="Preco" Nullable="true" Precision="18" Scale="0" />
+  </ComplexType>
+</Schema>

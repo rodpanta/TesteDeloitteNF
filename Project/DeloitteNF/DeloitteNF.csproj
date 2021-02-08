@@ -1,0 +1,603 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{B8D44718-DE1F-40FA-9D22-5F545DEAC4B3}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DeloitteNF</RootNamespace>
+    <AssemblyName>DeloitteNF</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <Use64BitIISExpress />
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http">
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+    </Reference>
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.4\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.4\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Optimization">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.4\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.4\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.4\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.4\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.11.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="WebGrease">
+      <Private>True</Private>
+      <HintPath>..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
+    </Reference>
+    <Reference Include="Antlr3.Runtime">
+      <Private>True</Private>
+      <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.11.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.Formatting">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.4\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.4\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.4\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Areas\rootAPI\Controllers\ClientesController.cs" />
+    <Compile Include="Areas\rootAPI\Controllers\FornecedoresController.cs" />
+    <Compile Include="Areas\rootAPI\Controllers\NotasFiscaisController.cs" />
+    <Compile Include="Areas\rootAPI\Controllers\ProdutosController.cs" />
+    <Compile Include="Areas\rootAPI\LoginAccess.cs" />
+    <Compile Include="Areas\rootAPI\LoginService.cs" />
+    <Compile Include="Areas\rootAPI\Models\NFGet.cs" />
+    <Compile Include="Areas\rootAPI\rootAPIAreaRegistration.cs" />
+    <Compile Include="Controllers\ClientesController.cs" />
+    <Compile Include="Controllers\FornecedoresController.cs" />
+    <Compile Include="Controllers\NotasFiscaisController.cs" />
+    <Compile Include="Controllers\ProdutosController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\RelatoriosController.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Clientes.cs">
+      <DependentUpon>DeloitteNFModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ClientsId_Result.cs">
+      <DependentUpon>DeloitteNFModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ClientsList_Result.cs">
+      <DependentUpon>DeloitteNFModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DeloitteNFModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DeloitteNFModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DeloitteNFModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DeloitteNFModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DeloitteNFModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DeloitteNFModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Fornecedores.cs">
+      <DependentUpon>DeloitteNFModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\InvoiceId_Result.cs">
+      <DependentUpon>DeloitteNFModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\InvoiceItemList_Result.cs">
+      <DependentUpon>DeloitteNFModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\InvoiceListBestCustomers_Result.cs">
+      <DependentUpon>DeloitteNFModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\InvoiceListProductsSales_Result.cs">
+      <DependentUpon>DeloitteNFModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\InvoiceList_Result.cs">
+      <DependentUpon>DeloitteNFModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ItensNotasFiscais.cs">
+      <DependentUpon>DeloitteNFModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\NotasFiscais.cs">
+      <DependentUpon>DeloitteNFModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ProductsId_Result.cs">
+      <DependentUpon>DeloitteNFModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ProductsList_Result.cs">
+      <DependentUpon>DeloitteNFModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Produtos.cs">
+      <DependentUpon>DeloitteNFModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ProviderList_Result.cs">
+      <DependentUpon>DeloitteNFModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ProvidersId_Result.cs">
+      <DependentUpon>DeloitteNFModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\stpProductsId_Result.cs">
+      <DependentUpon>DeloitteNFModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\stp_BestCostumers_Result.cs">
+      <DependentUpon>DeloitteNFModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\stp_BestCustomers_Result.cs">
+      <DependentUpon>DeloitteNFModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\stp_ClientesResList_Result.cs">
+      <DependentUpon>DeloitteNFModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\stp_ClientsId_Result.cs">
+      <DependentUpon>DeloitteNFModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\stp_ClientsInsert_Result.cs">
+      <DependentUpon>DeloitteNFModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\stp_ClientsUpdate_Result.cs">
+      <DependentUpon>DeloitteNFModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\stp_InvoiceID_Result.cs">
+      <DependentUpon>DeloitteNFModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\stp_InvoiceInsertRes_Result.cs">
+      <DependentUpon>DeloitteNFModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\stp_InvoiceInsert_Result.cs">
+      <DependentUpon>DeloitteNFModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\stp_InvoiceItemList_Result.cs">
+      <DependentUpon>DeloitteNFModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\stp_InvoiceListProductsSales_Result.cs">
+      <DependentUpon>DeloitteNFModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\stp_InvoiceList_Result.cs">
+      <DependentUpon>DeloitteNFModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\stp_InvoiceProductsSales_Result.cs">
+      <DependentUpon>DeloitteNFModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\stp_ProductsInsert_Result.cs">
+      <DependentUpon>DeloitteNFModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\stp_ProductsList_Result.cs">
+      <DependentUpon>DeloitteNFModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\stp_ProductsUpdate_Result.cs">
+      <DependentUpon>DeloitteNFModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\stp_ProvidersId_Result.cs">
+      <DependentUpon>DeloitteNFModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\stp_ProvidersInsert_Result.cs">
+      <DependentUpon>DeloitteNFModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\stp_ProviderSPList_Result.cs">
+      <DependentUpon>DeloitteNFModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\stp_ProvidersUpdate_Result.cs">
+      <DependentUpon>DeloitteNFModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="assets\css\style-responsive.css" />
+    <Content Include="assets\css\style.css" />
+    <Content Include="assets\css\table-responsive.css" />
+    <Content Include="assets\css\to-do.css" />
+    <Content Include="assets\css\zabuto_calendar.css" />
+    <Content Include="assets\img\404.png" />
+    <Content Include="assets\img\500.png" />
+    <Content Include="assets\img\apple-touch-icon.png" />
+    <Content Include="assets\img\blog-bg.jpg" />
+    <Content Include="assets\img\checkbox-gray.png" />
+    <Content Include="assets\img\favicon.png" />
+    <Content Include="assets\img\friends\fr-01.jpg" />
+    <Content Include="assets\img\friends\fr-02.jpg" />
+    <Content Include="assets\img\friends\fr-03.jpg" />
+    <Content Include="assets\img\friends\fr-04.jpg" />
+    <Content Include="assets\img\friends\fr-05.jpg" />
+    <Content Include="assets\img\friends\fr-06.jpg" />
+    <Content Include="assets\img\friends\fr-07.jpg" />
+    <Content Include="assets\img\friends\fr-08.jpg" />
+    <Content Include="assets\img\friends\fr-09.jpg" />
+    <Content Include="assets\img\friends\fr-10.jpg" />
+    <Content Include="assets\img\friends\fr-11.jpg" />
+    <Content Include="assets\img\instagram.jpg" />
+    <Content Include="assets\img\login-bg.jpg" />
+    <Content Include="assets\img\lorde.jpg" />
+    <Content Include="assets\img\mask.png" />
+    <Content Include="assets\img\ny.jpg" />
+    <Content Include="assets\img\portfolio\port01.jpg" />
+    <Content Include="assets\img\portfolio\port02.jpg" />
+    <Content Include="assets\img\portfolio\port03.jpg" />
+    <Content Include="assets\img\portfolio\port04.jpg" />
+    <Content Include="assets\img\portfolio\port05.jpg" />
+    <Content Include="assets\img\portfolio\port06.jpg" />
+    <Content Include="assets\img\product.jpg" />
+    <Content Include="assets\img\profile-01.jpg" />
+    <Content Include="assets\img\profile-02.jpg" />
+    <Content Include="assets\img\radio-gray.png" />
+    <Content Include="assets\img\ui-danro.jpg" />
+    <Content Include="assets\img\ui-divya.jpg" />
+    <Content Include="assets\img\ui-sam.jpg" />
+    <Content Include="assets\img\ui-sherman.jpg" />
+    <Content Include="assets\img\ui-zac.jpg" />
+    <Content Include="assets\img\weather.jpg" />
+    <Content Include="assets\img\zoom.png" />
+    <Content Include="assets\lib\advanced-datatable\css\demo_page.css" />
+    <Content Include="assets\lib\advanced-datatable\css\demo_table.css" />
+    <Content Include="assets\lib\advanced-datatable\css\demo_table_jui.css" />
+    <Content Include="assets\lib\advanced-datatable\css\DT_bootstrap.css" />
+    <Content Include="assets\lib\advanced-datatable\css\jquery.dataTables.css" />
+    <Content Include="assets\lib\advanced-datatable\css\jquery.dataTables_themeroller.css" />
+    <Content Include="assets\lib\advanced-datatable\images\back_disabled.png" />
+    <Content Include="assets\lib\advanced-datatable\images\back_enabled.png" />
+    <Content Include="assets\lib\advanced-datatable\images\back_enabled_hover.png" />
+    <Content Include="assets\lib\advanced-datatable\images\details_close.png" />
+    <Content Include="assets\lib\advanced-datatable\images\details_open.png" />
+    <Content Include="assets\lib\advanced-datatable\images\favicon.ico" />
+    <Content Include="assets\lib\advanced-datatable\images\forward_disabled.png" />
+    <Content Include="assets\lib\advanced-datatable\images\forward_enabled.png" />
+    <Content Include="assets\lib\advanced-datatable\images\forward_enabled_hover.png" />
+    <Content Include="assets\lib\advanced-datatable\images\sort_asc.png" />
+    <Content Include="assets\lib\advanced-datatable\images\sort_asc_disabled.png" />
+    <Content Include="assets\lib\advanced-datatable\images\sort_both.png" />
+    <Content Include="assets\lib\advanced-datatable\images\sort_desc.png" />
+    <Content Include="assets\lib\advanced-datatable\images\sort_desc_disabled.png" />
+    <Content Include="assets\lib\advanced-datatable\js\DT_bootstrap.js" />
+    <Content Include="assets\lib\advanced-datatable\js\jquery.dataTables.js" />
+    <Content Include="assets\lib\advanced-datatable\js\jquery.dataTables.min.js" />
+    <Content Include="assets\lib\advanced-datatable\js\jquery.js" />
+    <Content Include="assets\lib\advanced-form-components.js" />
+    <Content Include="assets\lib\bootstrap-datepicker\css\datepicker.css" />
+    <Content Include="assets\lib\bootstrap-datepicker\js\bootstrap-datepicker.js" />
+    <Content Include="assets\lib\bootstrap-daterangepicker\date.js" />
+    <Content Include="assets\lib\bootstrap-daterangepicker\daterangepicker-bs3.css" />
+    <Content Include="assets\lib\bootstrap-daterangepicker\daterangepicker.css" />
+    <Content Include="assets\lib\bootstrap-daterangepicker\daterangepicker.js" />
+    <Content Include="assets\lib\bootstrap-daterangepicker\moment.min.js" />
+    <Content Include="assets\lib\bootstrap-datetimepicker\css\datetimepicker.css" />
+    <Content Include="assets\lib\bootstrap-datetimepicker\js\bootstrap-datetimepicker.js" />
+    <Content Include="assets\lib\bootstrap-fileupload\bootstrap-fileupload.css" />
+    <Content Include="assets\lib\bootstrap-fileupload\bootstrap-fileupload.js" />
+    <Content Include="assets\lib\bootstrap-inputmask\bootstrap-inputmask.min.js" />
+    <Content Include="assets\lib\bootstrap-switch.js" />
+    <Content Include="assets\lib\bootstrap-timepicker\compiled\timepicker.css" />
+    <Content Include="assets\lib\bootstrap-timepicker\js\bootstrap-timepicker.js" />
+    <Content Include="assets\lib\bootstrap-wysihtml5\bootstrap-wysihtml5.css" />
+    <Content Include="assets\lib\bootstrap-wysihtml5\bootstrap-wysihtml5.js" />
+    <Content Include="assets\lib\bootstrap-wysihtml5\wysihtml5-0.3.0.js" />
+    <Content Include="assets\lib\bootstrap\css\bootstrap.css" />
+    <Content Include="assets\lib\bootstrap\css\bootstrap.min.css" />
+    <Content Include="assets\lib\bootstrap\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="assets\lib\bootstrap\js\bootstrap.js" />
+    <Content Include="assets\lib\bootstrap\js\bootstrap.min.js" />
+    <Content Include="assets\lib\calendar-conf-events.js" />
+    <Content Include="assets\lib\chart-master\Chart.js" />
+    <Content Include="assets\lib\chartjs-conf.js" />
+    <Content Include="assets\lib\ckeditor\ckeditor.js" />
+    <Content Include="assets\lib\common-scripts.js" />
+    <Content Include="assets\lib\dropzone\css\dropzone.css" />
+    <Content Include="assets\lib\dropzone\dropzone.js" />
+    <Content Include="assets\lib\dropzone\images\spritemap%402x.png" />
+    <Content Include="assets\lib\dropzone\images\spritemap.png" />
+    <Content Include="assets\lib\easy-pie-chart.js" />
+    <Content Include="assets\lib\fancybox\jquery.fancybox.css" />
+    <Content Include="assets\lib\fancybox\jquery.fancybox.js" />
+    <Content Include="assets\lib\file-uploader\css\jquery.fileupload-noscript.css" />
+    <Content Include="assets\lib\file-uploader\css\jquery.fileupload-ui-noscript.css" />
+    <Content Include="assets\lib\file-uploader\css\jquery.fileupload-ui.css" />
+    <Content Include="assets\lib\file-uploader\css\jquery.fileupload.css" />
+    <Content Include="assets\lib\file-uploader\img\loading.gif" />
+    <Content Include="assets\lib\file-uploader\img\progressbar.gif" />
+    <Content Include="assets\lib\file-uploader\js\cors\jquery.xdr-transport.js" />
+    <Content Include="assets\lib\file-uploader\js\jquery.fileupload-audio.js" />
+    <Content Include="assets\lib\file-uploader\js\jquery.fileupload-image.js" />
+    <Content Include="assets\lib\file-uploader\js\jquery.fileupload-process.js" />
+    <Content Include="assets\lib\file-uploader\js\jquery.fileupload-ui.js" />
+    <Content Include="assets\lib\file-uploader\js\jquery.fileupload-validate.js" />
+    <Content Include="assets\lib\file-uploader\js\jquery.fileupload-video.js" />
+    <Content Include="assets\lib\file-uploader\js\jquery.fileupload.js" />
+    <Content Include="assets\lib\file-uploader\js\jquery.iframe-transport.js" />
+    <Content Include="assets\lib\file-uploader\js\main.js" />
+    <Content Include="assets\lib\file-uploader\js\vendor\jquery.ui.widget.js" />
+    <Content Include="assets\lib\flotchart-conf.js" />
+    <Content Include="assets\lib\flot\jquery.flot.crosshair.js" />
+    <Content Include="assets\lib\flot\jquery.flot.js" />
+    <Content Include="assets\lib\flot\jquery.flot.pie.js" />
+    <Content Include="assets\lib\flot\jquery.flot.resize.js" />
+    <Content Include="assets\lib\flot\jquery.flot.stack.js" />
+    <Content Include="assets\lib\font-awesome\css\font-awesome.css" />
+    <Content Include="assets\lib\font-awesome\css\font-awesome.min.css" />
+    <Content Include="assets\lib\font-awesome\fonts\fontawesome-webfont.svg" />
+    <Content Include="assets\lib\form-component.js" />
+    <Content Include="assets\lib\form-validation-script.js" />
+    <Content Include="assets\lib\fullcalendar\bootstrap-fullcalendar.css" />
+    <Content Include="assets\lib\fullcalendar\fullcalendar.min.js" />
+    <Content Include="assets\lib\google-maps\data\points.js" />
+    <Content Include="assets\lib\google-maps\maplace.js" />
+    <Content Include="assets\lib\gritter-conf.js" />
+    <Content Include="assets\lib\gritter\css\jquery.gritter.css" />
+    <Content Include="assets\lib\gritter\css\jquery.gritter0.css" />
+    <Content Include="assets\lib\gritter\images\gritter-light.png" />
+    <Content Include="assets\lib\gritter\images\gritter-long.png" />
+    <Content Include="assets\lib\gritter\images\gritter.png" />
+    <Content Include="assets\lib\gritter\images\ie-spacer.gif" />
+    <Content Include="assets\lib\gritter\js\jquery.gritter.js" />
+    <Content Include="assets\lib\jquery-easy-pie-chart\jquery.easy-pie-chart.css" />
+    <Content Include="assets\lib\jquery-easy-pie-chart\jquery.easy-pie-chart.js" />
+    <Content Include="assets\lib\jquery-ui-1.9.2.custom.min.js" />
+    <Content Include="assets\lib\jquery.backstretch.min.js" />
+    <Content Include="assets\lib\jquery.dcjqaccordion.2.7.js" />
+    <Content Include="assets\lib\jquery.nicescroll.js" />
+    <Content Include="assets\lib\jquery.scrollTo.min.js" />
+    <Content Include="assets\lib\jquery.sparkline.js" />
+    <Content Include="assets\lib\jquery.tagsinput.js" />
+    <Content Include="assets\lib\jquery.ui.touch-punch.min.js" />
+    <Content Include="assets\lib\jquery\jquery.js" />
+    <Content Include="assets\lib\jquery\jquery.min.js" />
+    <Content Include="assets\lib\morris-conf.js" />
+    <Content Include="assets\lib\morris\morris.min.js" />
+    <Content Include="assets\lib\php-mail-form\validate.js" />
+    <Content Include="assets\lib\raphael\raphael.min.js" />
+    <Content Include="assets\lib\sparkline-chart.js" />
+    <Content Include="assets\lib\tasks.js" />
+    <Content Include="assets\lib\xchart\d3.v3.min.js" />
+    <Content Include="assets\lib\xchart\xcharts.css" />
+    <Content Include="assets\lib\xchart\xcharts.min.js" />
+    <Content Include="assets\lib\zabuto_calendar.js" />
+    <Content Include="Content\bootstrap-theme.css" />
+    <Content Include="Content\bootstrap-theme.min.css" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="favicon.ico" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Global.asax" />
+    <Content Include="Content\Site.css" />
+    <Content Include="Models\DeloitteNFModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>DeloitteNFModel.edmx</DependentUpon>
+      <LastGenOutput>DeloitteNFModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\DeloitteNFModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>DeloitteNFModel.edmx</DependentUpon>
+      <LastGenOutput>DeloitteNFModel.cs</LastGenOutput>
+    </Content>
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="assets\lib\advanced-datatable\images\Sorting icons.psd" />
+    <Content Include="assets\lib\bootstrap\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="assets\lib\bootstrap\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="assets\lib\bootstrap\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="assets\lib\bootstrap\fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="assets\lib\font-awesome\fonts\fontawesome-webfont.eot" />
+    <Content Include="assets\lib\font-awesome\fonts\fontawesome-webfont.ttf" />
+    <Content Include="assets\lib\font-awesome\fonts\fontawesome-webfont.woff" />
+    <Content Include="assets\lib\font-awesome\fonts\fontawesome-webfont.woff2" />
+    <Content Include="assets\lib\font-awesome\fonts\FontAwesome.otf" />
+    <EntityDeploy Include="Models\DeloitteNFModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>DeloitteNFModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\DeloitteNFModel.edmx.diagram">
+      <DependentUpon>DeloitteNFModel.edmx</DependentUpon>
+    </Content>
+    <Content Include="Areas\rootAPI\Views\web.config" />
+    <None Include="Scripts\jquery-3.3.1.intellisense.js" />
+    <Content Include="Scripts\jquery-3.3.1.js" />
+    <Content Include="Scripts\jquery-3.3.1.min.js" />
+    <Content Include="Scripts\jquery-3.3.1.slim.js" />
+    <Content Include="Scripts\jquery-3.3.1.slim.min.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Web.config" />
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Home\About.cshtml" />
+    <Content Include="Views\Home\Contact.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Produtos\Index.cshtml" />
+    <Content Include="Views\Fornecedores\Index.cshtml" />
+    <Content Include="Views\NotasFiscais\Index.cshtml" />
+    <Content Include="Views\NotasFiscais\Create.cshtml" />
+    <Content Include="Views\NotasFiscais\Details.cshtml" />
+    <Content Include="Views\Clientes\Index.cshtml" />
+    <Content Include="Views\Clientes\Create.cshtml" />
+    <Content Include="Views\Clientes\Edit.cshtml" />
+    <Content Include="Views\Clientes\Details.cshtml" />
+    <Content Include="Views\Clientes\Delete.cshtml" />
+    <Content Include="Views\Fornecedores\Create.cshtml" />
+    <Content Include="Views\Fornecedores\Edit.cshtml" />
+    <Content Include="Views\Fornecedores\Details.cshtml" />
+    <Content Include="Views\Fornecedores\Delete.cshtml" />
+    <Content Include="Views\Produtos\Details.cshtml" />
+    <Content Include="Views\Produtos\Edit.cshtml" />
+    <Content Include="Views\Produtos\Create.cshtml" />
+    <Content Include="Views\Produtos\Delete.cshtml" />
+    <Content Include="Views\NotasFiscais\CreateItem.cshtml" />
+    <Content Include="Views\NotasFiscais\Delete.cshtml" />
+    <Content Include="Views\NotasFiscais\Edit.cshtml" />
+    <Content Include="Views\Relatorios\ProductsSales.cshtml" />
+    <Content Include="Views\Relatorios\ClientsSales.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="Areas\rootAPI\Views\Shared\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\bootstrap.min.css.map" />
+    <Content Include="Content\bootstrap.css.map" />
+    <Content Include="Content\bootstrap-theme.min.css.map" />
+    <Content Include="Content\bootstrap-theme.css.map" />
+    <None Include="packages.config" />
+    <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
+    <Content Include="Scripts\jquery-3.3.1.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>63844</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:63844/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>Este projeto faz referência a pacotes do NuGet que não estão presentes neste computador. Use a Restauração de Pacotes do NuGet para baixá-los.  Para obter mais informações, consulte http://go.microsoft.com/fwlink/?LinkID=322105. O arquivo ausente é {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>

@@ -1,0 +1,453 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DeloitteNFModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Clientes">
+    <Key>
+      <PropertyRef Name="Cliente_id" />
+    </Key>
+    <Property Name="Cliente_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nome" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+    <Property Name="Endereço" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+    <Property Name="Tipo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="NotasFiscais" Relationship="Self.FK_NotasFiscais_Clientes" FromRole="Clientes" ToRole="NotasFiscais" />
+  </EntityType>
+  <EntityType Name="Fornecedores">
+    <Key>
+      <PropertyRef Name="Fornecedor_id" />
+    </Key>
+    <Property Name="Fornecedor_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nome" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Produtos" Relationship="DeloitteNFModel.FK_Produtos_Fornecedores" FromRole="Fornecedores" ToRole="Produtos" />
+  </EntityType>
+  <EntityType Name="ItensNotasFiscais">
+    <Key>
+      <PropertyRef Name="ItemNotaFiscal_id" />
+    </Key>
+    <Property Name="ItemNotaFiscal_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="NotaFiscal_id" Type="Int32" Nullable="false" />
+    <Property Name="Quantidade" Type="Int32" Nullable="false" />
+    <Property Name="Total" Type="Decimal" Precision="18" Scale="5" Nullable="false" />
+    <NavigationProperty Name="NotasFiscais" Relationship="Self.FK_ItensNotasFiscais_NotasFiscais" FromRole="ItensNotasFiscais" ToRole="NotasFiscais" />
+    <Property Name="Produto_id" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Produtos" Relationship="DeloitteNFModel.FK_ItensNotasFiscais_Produtos" FromRole="ItensNotasFiscais" ToRole="Produtos" />
+  </EntityType>
+  <EntityType Name="NotasFiscais">
+    <Key>
+      <PropertyRef Name="NotaFiscal_id" />
+    </Key>
+    <Property Name="NotaFiscal_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Cliente_id" Type="Int32" Nullable="false" />
+    <Property Name="Data" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="Clientes" Relationship="Self.FK_NotasFiscais_Clientes" FromRole="NotasFiscais" ToRole="Clientes" />
+    <NavigationProperty Name="ItensNotasFiscais" Relationship="Self.FK_ItensNotasFiscais_NotasFiscais" FromRole="NotasFiscais" ToRole="ItensNotasFiscais" />
+    <Property Name="Emitida" Type="Boolean" />
+  </EntityType>
+  <EntityType Name="Produtos">
+    <Key>
+      <PropertyRef Name="Produto_id" />
+    </Key>
+    <Property Name="Produto_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nome" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="Unidade" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Preco" Type="Decimal" Precision="18" Scale="5" />
+    <Property Name="Fornecedor_id" Type="Int32" />
+    <NavigationProperty Name="Fornecedores" Relationship="DeloitteNFModel.FK_Produtos_Fornecedores" FromRole="Produtos" ToRole="Fornecedores" />
+    <NavigationProperty Name="ItensNotasFiscais" Relationship="DeloitteNFModel.FK_ItensNotasFiscais_Produtos" FromRole="Produtos" ToRole="ItensNotasFiscais" />
+  </EntityType>
+  <Association Name="FK_NotasFiscais_Clientes">
+    <End Role="Clientes" Type="Self.Clientes" Multiplicity="1" />
+    <End Role="NotasFiscais" Type="Self.NotasFiscais" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Clientes">
+        <PropertyRef Name="Cliente_id" />
+      </Principal>
+      <Dependent Role="NotasFiscais">
+        <PropertyRef Name="Cliente_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ItensNotasFiscais_NotasFiscais">
+    <End Role="NotasFiscais" Type="Self.NotasFiscais" Multiplicity="1" />
+    <End Role="ItensNotasFiscais" Type="Self.ItensNotasFiscais" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="NotasFiscais">
+        <PropertyRef Name="NotaFiscal_id" />
+      </Principal>
+      <Dependent Role="ItensNotasFiscais">
+        <PropertyRef Name="NotaFiscal_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="DeloitteNFEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Clientes" EntityType="Self.Clientes" />
+    <EntitySet Name="Fornecedores" EntityType="Self.Fornecedores" />
+    <EntitySet Name="ItensNotasFiscais" EntityType="Self.ItensNotasFiscais" />
+    <EntitySet Name="NotasFiscais" EntityType="Self.NotasFiscais" />
+    <EntitySet Name="Produtos" EntityType="Self.Produtos" />
+    <AssociationSet Name="FK_NotasFiscais_Clientes" Association="Self.FK_NotasFiscais_Clientes">
+      <End Role="Clientes" EntitySet="Clientes" />
+      <End Role="NotasFiscais" EntitySet="NotasFiscais" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ItensNotasFiscais_NotasFiscais" Association="Self.FK_ItensNotasFiscais_NotasFiscais">
+      <End Role="NotasFiscais" EntitySet="NotasFiscais" />
+      <End Role="ItensNotasFiscais" EntitySet="ItensNotasFiscais" />
+    </AssociationSet>
+    <FunctionImport Name="ClientsList" ReturnType="Collection(DeloitteNFModel.ClientsList_Result)" />
+    <FunctionImport Name="InvoiceList" ReturnType="Collection(DeloitteNFModel.InvoiceList_Result)" />
+    <FunctionImport Name="ProductsList" ReturnType="Collection(DeloitteNFModel.ProductsList_Result)" />
+    <FunctionImport Name="ProviderList" ReturnType="Collection(DeloitteNFModel.ProviderList_Result)" />
+    <FunctionImport Name="stp_ClientesList" EntitySet="Clientes" ReturnType="Collection(DeloitteNFModel.Clientes)" />
+    <FunctionImport Name="stp_ProviderSPList" ReturnType="Collection(DeloitteNFModel.stp_ProviderSPList_Result)" />
+    <FunctionImport Name="stp_ClientesResList" ReturnType="Collection(DeloitteNFModel.stp_ClientesResList_Result)" />
+    <FunctionImport Name="InvoiceId" ReturnType="Collection(DeloitteNFModel.InvoiceId_Result)">
+      <Parameter Name="NotaFiscalid" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="InvoiceItemList" ReturnType="Collection(DeloitteNFModel.InvoiceItemList_Result)">
+      <Parameter Name="NotaFiscalid" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="InvoiceItemsInsert">
+      <Parameter Name="NotaFiscalid" Mode="In" Type="Int32" />
+      <Parameter Name="Produtoid" Mode="In" Type="Int32" />
+      <Parameter Name="Quantidade" Mode="In" Type="Int32" />
+      <Parameter Name="Preco" Mode="In" Type="Decimal" />
+    </FunctionImport>
+    <FunctionImport Name="stp_InvoiceInsert" ReturnType="Collection(DeloitteNFModel.stp_InvoiceInsertRes_Result)">
+      <Parameter Name="Clienteid" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="stp_InvoiceID" ReturnType="Collection(DeloitteNFModel.stp_InvoiceID_Result)">
+      <Parameter Name="NotaFiscalid" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="ClientsInsert" ReturnType="Collection(Decimal)">
+      <Parameter Name="Nome" Mode="In" Type="String" />
+      <Parameter Name="Endereco" Mode="In" Type="String" />
+      <Parameter Name="Tipo" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="stp_ClientsInsert" ReturnType="Collection(DeloitteNFModel.stp_ClientsInsert_Result)">
+      <Parameter Name="Nome" Mode="In" Type="String" />
+      <Parameter Name="Endereco" Mode="In" Type="String" />
+      <Parameter Name="Tipo" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="ClientsId" ReturnType="Collection(DeloitteNFModel.ClientsId_Result)">
+      <Parameter Name="Clienteid" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="stp_ClientsId" ReturnType="Collection(DeloitteNFModel.stp_ClientsId_Result)">
+      <Parameter Name="Clienteid" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="ClientsUpdate" ReturnType="Collection(Decimal)">
+      <Parameter Name="ClienteId" Mode="In" Type="Int32" />
+      <Parameter Name="Nome" Mode="In" Type="String" />
+      <Parameter Name="Endereco" Mode="In" Type="String" />
+      <Parameter Name="Tipo" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="stp_ClientsUpdate" ReturnType="Collection(DeloitteNFModel.stp_ClientsUpdate_Result)">
+      <Parameter Name="ClienteId" Mode="In" Type="Int32" />
+      <Parameter Name="Nome" Mode="In" Type="String" />
+      <Parameter Name="Endereco" Mode="In" Type="String" />
+      <Parameter Name="Tipo" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="ClientsDelete">
+      <Parameter Name="Clienteid" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="stp_ClientsDelete">
+      <Parameter Name="Clienteid" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="stp_BestCostumers" ReturnType="Collection(DeloitteNFModel.stp_BestCostumers_Result)" />
+    <FunctionImport Name="InvoiceListBestCustomers" ReturnType="Collection(DeloitteNFModel.InvoiceListBestCustomers_Result)" />
+    <FunctionImport Name="stp_BestCustomers" ReturnType="Collection(DeloitteNFModel.stp_BestCustomers_Result)" />
+    <FunctionImport Name="ProvidersDelete">
+      <Parameter Name="Fornecedorid" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="ProvidersId" ReturnType="Collection(DeloitteNFModel.ProvidersId_Result)">
+      <Parameter Name="Fornecedorid" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="ProvidersInsert" ReturnType="Collection(Decimal)">
+      <Parameter Name="Nome" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="ProvidersUpdate" ReturnType="Collection(Decimal)">
+      <Parameter Name="FornecedorId" Mode="In" Type="Int32" />
+      <Parameter Name="Nome" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="stp_ProvidersInsert" ReturnType="Collection(DeloitteNFModel.stp_ProvidersInsert_Result)">
+      <Parameter Name="Nome" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="stp_ProvidersId" ReturnType="Collection(DeloitteNFModel.stp_ProvidersId_Result)">
+      <Parameter Name="Fornecedorid" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="stp_ProvidersUpdate" ReturnType="Collection(DeloitteNFModel.stp_ProvidersUpdate_Result)">
+      <Parameter Name="FornecedorId" Mode="In" Type="Int32" />
+      <Parameter Name="Nome" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="stp_ProvidersDelete">
+      <Parameter Name="Fornecedorid" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <AssociationSet Name="FK_Produtos_Fornecedores" Association="DeloitteNFModel.FK_Produtos_Fornecedores">
+      <End Role="Fornecedores" EntitySet="Fornecedores" />
+      <End Role="Produtos" EntitySet="Produtos" />
+    </AssociationSet>
+    <FunctionImport Name="stp_ProductsList" ReturnType="Collection(DeloitteNFModel.stp_ProductsList_Result)" />
+    <AssociationSet Name="FK_ItensNotasFiscais_Produtos" Association="DeloitteNFModel.FK_ItensNotasFiscais_Produtos">
+      <End Role="Produtos" EntitySet="Produtos" />
+      <End Role="ItensNotasFiscais" EntitySet="ItensNotasFiscais" />
+    </AssociationSet>
+    <FunctionImport Name="ProductsId" ReturnType="Collection(DeloitteNFModel.ProductsId_Result)">
+      <Parameter Name="Produtoid" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="ProductsInsert" ReturnType="Collection(Decimal)">
+      <Parameter Name="Nome" Mode="In" Type="String" />
+      <Parameter Name="Unidade" Mode="In" Type="String" />
+      <Parameter Name="Preco" Mode="In" Type="Decimal" />
+      <Parameter Name="Fornecedorid" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="ProductsUpdate" ReturnType="Collection(Decimal)">
+      <Parameter Name="Produtoid" Mode="In" Type="Int32" />
+      <Parameter Name="Nome" Mode="In" Type="String" />
+      <Parameter Name="Unidade" Mode="In" Type="String" />
+      <Parameter Name="Preco" Mode="In" Type="Decimal" />
+      <Parameter Name="Fornecedorid" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="stpProductsId" ReturnType="Collection(DeloitteNFModel.stpProductsId_Result)">
+      <Parameter Name="Produtoid" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="stp_ProductsUpdate" ReturnType="Collection(DeloitteNFModel.stp_ProductsUpdate_Result)">
+      <Parameter Name="Produtoid" Mode="In" Type="Int32" />
+      <Parameter Name="Nome" Mode="In" Type="String" />
+      <Parameter Name="Unidade" Mode="In" Type="String" />
+      <Parameter Name="Preco" Mode="In" Type="Decimal" />
+      <Parameter Name="Fornecedorid" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="stp_ProductsInsert" ReturnType="Collection(DeloitteNFModel.stp_ProductsInsert_Result)">
+      <Parameter Name="Nome" Mode="In" Type="String" />
+      <Parameter Name="Unidade" Mode="In" Type="String" />
+      <Parameter Name="Preco" Mode="In" Type="Decimal" />
+      <Parameter Name="Fornecedorid" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="stp_ProductsDelete">
+      <Parameter Name="Productid" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="stp_STPProductsDelete">
+      <Parameter Name="Productid" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="stp_InvoiceList" ReturnType="Collection(DeloitteNFModel.stp_InvoiceList_Result)" />
+    <FunctionImport Name="stp_InvoiceItemsInsert">
+      <Parameter Name="NotaFiscalid" Mode="In" Type="Int32" />
+      <Parameter Name="Produtoid" Mode="In" Type="Int32" />
+      <Parameter Name="Quantidade" Mode="In" Type="Int32" />
+      <Parameter Name="Preco" Mode="In" Type="Decimal" />
+    </FunctionImport>
+    <FunctionImport Name="stp_InvoiceItemList" ReturnType="Collection(DeloitteNFModel.stp_InvoiceItemList_Result)">
+      <Parameter Name="NotaFiscalid" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="InvoiceDelete">
+      <Parameter Name="NotaFiscalid" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="stp_InvoiceDelete">
+      <Parameter Name="NotaFiscalid" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="InvoiceEmitir">
+      <Parameter Name="NotaFiscalid" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="stp_InvoiceEmitir">
+      <Parameter Name="NotaFiscalid" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="InvoiceItemsDelete">
+      <Parameter Name="ItemNotaFiscalid" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="stp_InvoiceItemsDelete">
+      <Parameter Name="ItemNotaFiscalid" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="InvoiceListProductsSales" ReturnType="Collection(DeloitteNFModel.InvoiceListProductsSales_Result)" />
+    <FunctionImport Name="stp_InvoiceListProductsSales" ReturnType="Collection(DeloitteNFModel.stp_InvoiceListProductsSales_Result)" />
+  </EntityContainer>
+  <ComplexType Name="ClientsList_Result">
+    <Property Type="Int32" Name="Cliente_id" Nullable="false" />
+    <Property Type="String" Name="Nome" Nullable="true" MaxLength="1000" />
+    <Property Type="String" Name="Endereço" Nullable="true" MaxLength="1000" />
+    <Property Type="String" Name="Tipo" Nullable="true" MaxLength="50" />
+  </ComplexType>
+  <ComplexType Name="InvoiceList_Result">
+    <Property Type="Int32" Name="NotaFiscal_id" Nullable="false" />
+    <Property Type="Int32" Name="Cliente_id" Nullable="false" />
+    <Property Type="DateTime" Name="Data" Nullable="false" Precision="23" />
+    <Property Type="String" Name="Nome" Nullable="true" MaxLength="1000" />
+    <Property Type="String" Name="Endereço" Nullable="true" MaxLength="1000" />
+    <Property Type="Decimal" Name="TotalNota" Nullable="true" Precision="38" Scale="0" />
+  </ComplexType>
+  <ComplexType Name="ProductsList_Result">
+    <Property Type="String" Name="nomefornec" Nullable="true" MaxLength="500" />
+    <Property Type="String" Name="nomeprod" Nullable="true" MaxLength="500" />
+    <Property Type="String" Name="Unidade" Nullable="true" MaxLength="50" />
+    <Property Type="Decimal" Name="Preco" Nullable="false" Precision="18" Scale="0" />
+  </ComplexType>
+  <ComplexType Name="ProviderList_Result">
+    <Property Type="Int32" Name="Fornecedor_id" Nullable="false" />
+    <Property Type="String" Name="Nome" Nullable="true" MaxLength="500" />
+  </ComplexType>
+  <ComplexType Name="stp_ProviderSPList_Result">
+    <Property Type="Int32" Name="Fornecedor_id" Nullable="false" />
+    <Property Type="String" Name="Nome" Nullable="true" MaxLength="500" />
+  </ComplexType>
+  <ComplexType Name="stp_ClientesResList_Result">
+    <Property Type="Int32" Name="Cliente_id" Nullable="false" />
+    <Property Type="String" Name="Nome" Nullable="true" MaxLength="1000" />
+    <Property Type="String" Name="Endereço" Nullable="true" MaxLength="1000" />
+    <Property Type="String" Name="Tipo" Nullable="true" MaxLength="50" />
+  </ComplexType>
+  <ComplexType Name="InvoiceId_Result">
+    <Property Type="Int32" Name="NotaFiscal_id" Nullable="false" />
+    <Property Type="Int32" Name="Cliente_id" Nullable="false" />
+    <Property Type="DateTime" Name="Data" Nullable="false" Precision="23" />
+  </ComplexType>
+  <ComplexType Name="InvoiceItemList_Result">
+    <Property Type="Int32" Name="ItemNotaFiscal_id" Nullable="false" />
+    <Property Type="Int32" Name="NotaFiscal_id" Nullable="false" />
+    <Property Type="Int32" Name="Quantidade" Nullable="false" />
+    <Property Type="Decimal" Name="Total" Nullable="false" Precision="18" Scale="0" />
+  </ComplexType>
+  <ComplexType Name="stp_InvoiceInsert_Result">
+    <Property Name="Column1" Nullable="true" Precision="38" Scale="0" Type="Decimal" />
+  </ComplexType>
+  <ComplexType Name="stp_InvoiceInsertRes_Result">
+    <Property Name="NotaFiscal_Id" Nullable="true" Precision="38" Scale="0" Type="Decimal" />
+  </ComplexType>
+  <ComplexType Name="stp_InvoiceID_Result">
+    <Property Type="Int32" Name="NotaFiscal_id" Nullable="false" />
+    <Property Type="Int32" Name="Cliente_id" Nullable="false" />
+    <Property Type="DateTime" Name="Data" Nullable="false" Precision="23" />
+    <Property Type="String" Name="Nome" Nullable="true" MaxLength="1000" />
+  </ComplexType>
+  <ComplexType Name="stp_ClientsInsert_Result">
+    <Property Type="Decimal" Name="Cliente_Id" Nullable="true" Precision="38" Scale="0" />
+  </ComplexType>
+  <ComplexType Name="ClientsId_Result">
+    <Property Type="Int32" Name="Cliente_id" Nullable="false" />
+    <Property Type="String" Name="Nome" Nullable="true" MaxLength="1000" />
+    <Property Type="String" Name="Endereço" Nullable="true" MaxLength="1000" />
+    <Property Type="String" Name="Tipo" Nullable="true" MaxLength="50" />
+  </ComplexType>
+  <ComplexType Name="stp_ClientsId_Result">
+    <Property Type="Int32" Name="Cliente_id" Nullable="false" />
+    <Property Type="String" Name="Nome" Nullable="true" MaxLength="1000" />
+    <Property Type="String" Name="Endereço" Nullable="true" MaxLength="1000" />
+    <Property Type="String" Name="Tipo" Nullable="true" MaxLength="50" />
+  </ComplexType>
+  <ComplexType Name="stp_ClientsUpdate_Result">
+    <Property Type="Decimal" Name="Cliente_Id" Nullable="true" Precision="38" Scale="0" />
+  </ComplexType>
+  <ComplexType Name="stp_BestCostumers_Result">
+    <Property Type="String" Name="nome" Nullable="true" MaxLength="1000" />
+    <Property Type="Decimal" Name="Total" Nullable="true" Precision="38" Scale="0" />
+  </ComplexType>
+  <ComplexType Name="InvoiceListBestCustomers_Result">
+    <Property Type="String" Name="nome" Nullable="true" MaxLength="1000" />
+    <Property Type="Decimal" Name="Total" Nullable="true" Precision="38" Scale="0" />
+  </ComplexType>
+  <ComplexType Name="stp_BestCustomers_Result">
+    <Property Type="String" Name="nome" Nullable="true" MaxLength="1000" />
+    <Property Type="Decimal" Name="Total" Nullable="true" Precision="38" Scale="0" />
+  </ComplexType>
+  <ComplexType Name="ProvidersId_Result">
+    <Property Type="Int32" Name="Fornecedor_id" Nullable="false" />
+    <Property Type="String" Name="Nome" Nullable="true" MaxLength="500" />
+  </ComplexType>
+  <ComplexType Name="stp_ProvidersInsert_Result">
+    <Property Type="Decimal" Name="Fornecedor_Id" Nullable="true" Precision="38" Scale="0" />
+  </ComplexType>
+  <ComplexType Name="stp_ProvidersId_Result">
+    <Property Type="Int32" Name="Fornecedor_id" Nullable="false" />
+    <Property Type="String" Name="Nome" Nullable="true" MaxLength="500" />
+  </ComplexType>
+  <ComplexType Name="stp_ProvidersUpdate_Result">
+    <Property Type="Decimal" Name="Fornecedor_Id" Nullable="true" Precision="38" Scale="0" />
+  </ComplexType>
+  <Association Name="FK_Produtos_Fornecedores">
+    <End Type="DeloitteNFModel.Fornecedores" Role="Fornecedores" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="DeloitteNFModel.Produtos" Role="Produtos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Fornecedores">
+        <PropertyRef Name="Fornecedor_id" />
+      </Principal>
+      <Dependent Role="Produtos">
+        <PropertyRef Name="Fornecedor_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <ComplexType Name="stp_ProductsList_Result">
+    <Property Type="String" Name="nomefornec" Nullable="true" MaxLength="500" />
+    <Property Type="String" Name="nomeprod" Nullable="true" MaxLength="500" />
+    <Property Type="String" Name="Unidade" Nullable="true" MaxLength="50" />
+    <Property Type="Decimal" Name="Preco" Nullable="true" Precision="18" Scale="0" />
+    <Property Type="Int32" Name="Produto_id" Nullable="false" />
+  </ComplexType>
+  <Association Name="FK_ItensNotasFiscais_Produtos">
+    <End Type="DeloitteNFModel.Produtos" Role="Produtos" Multiplicity="1" />
+    <End Type="DeloitteNFModel.ItensNotasFiscais" Role="ItensNotasFiscais" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Produtos">
+        <PropertyRef Name="Produto_id" />
+      </Principal>
+      <Dependent Role="ItensNotasFiscais">
+        <PropertyRef Name="Produto_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <ComplexType Name="ProductsId_Result">
+    <Property Type="Int32" Name="Produto_id" Nullable="false" />
+    <Property Type="String" Name="nomeprod" Nullable="true" MaxLength="500" />
+    <Property Type="String" Name="Unidade" Nullable="true" MaxLength="50" />
+    <Property Type="Decimal" Name="Preco" Nullable="true" Precision="18" Scale="0" />
+    <Property Type="Int32" Name="Fornecedor_id" Nullable="true" />
+    <Property Type="String" Name="nomefornec" Nullable="true" MaxLength="500" />
+  </ComplexType>
+  <ComplexType Name="stpProductsId_Result">
+    <Property Type="Int32" Name="Produto_id" Nullable="false" />
+    <Property Type="String" Name="nomeprod" Nullable="true" MaxLength="500" />
+    <Property Type="String" Name="Unidade" Nullable="true" MaxLength="50" />
+    <Property Type="Decimal" Name="Preco" Nullable="true" Precision="18" Scale="0" />
+    <Property Type="Int32" Name="Fornecedor_id" Nullable="true" />
+    <Property Type="String" Name="nomefornec" Nullable="true" MaxLength="500" />
+  </ComplexType>
+  <ComplexType Name="stp_ProductsUpdate_Result">
+    <Property Type="Decimal" Name="Produto_id" Nullable="true" Precision="38" Scale="0" />
+  </ComplexType>
+  <ComplexType Name="stp_ProductsInsert_Result">
+    <Property Type="Decimal" Name="Produto_Id" Nullable="true" Precision="38" Scale="0" />
+  </ComplexType>
+  <ComplexType Name="stp_InvoiceList_Result">
+    <Property Type="Int32" Name="NotaFiscal_id" Nullable="false" />
+    <Property Type="Int32" Name="Cliente_id" Nullable="false" />
+    <Property Type="DateTime" Name="Data" Nullable="false" Precision="23" />
+    <Property Type="String" Name="Nome" Nullable="true" MaxLength="1000" />
+    <Property Type="String" Name="Endereço" Nullable="true" MaxLength="1000" />
+    <Property Type="Decimal" Name="TotalNota" Nullable="false" Precision="38" Scale="0" />
+    <Property Type="Boolean" Name="Emitida" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="stp_InvoiceItemList_Result">
+    <Property Type="Int32" Name="ItemNotaFiscal_id" Nullable="false" />
+    <Property Type="Int32" Name="NotaFiscal_id" Nullable="false" />
+    <Property Type="Int32" Name="Produto_id" Nullable="false" />
+    <Property Type="Int32" Name="Quantidade" Nullable="false" />
+    <Property Type="Decimal" Name="Total" Nullable="false" Precision="18" Scale="0" />
+    <Property Type="String" Name="Nome" Nullable="true" MaxLength="500" />
+    <Property Type="String" Name="Unidade" Nullable="true" MaxLength="50" />
+    <Property Type="Decimal" Name="Preco" Nullable="true" Precision="18" Scale="5" />
+  </ComplexType>
+  <ComplexType Name="InvoiceListProductsSales_Result">
+    <Property Type="String" Name="Nome" Nullable="true" MaxLength="500" />
+    <Property Type="Int32" Name="Produto_id" Nullable="false" />
+    <Property Type="Int32" Name="UnidadesVendidas" Nullable="true" />
+    <Property Type="Decimal" Name="ValorTotal" Nullable="true" Precision="38" Scale="5" />
+  </ComplexType>
+  <ComplexType Name="stp_InvoiceProductsSales_Result">
+    <Property Type="String" Name="Nome" Nullable="true" MaxLength="500" />
+    <Property Type="Int32" Name="Produto_id" Nullable="false" />
+    <Property Type="Int32" Name="UnidadesVendidas" Nullable="true" />
+    <Property Type="Decimal" Name="ValorTotal" Nullable="true" Precision="38" Scale="5" />
+  </ComplexType>
+  <ComplexType Name="stp_InvoiceListProductsSales_Result">
+    <Property Type="String" Name="Nome" Nullable="true" MaxLength="500" />
+    <Property Type="Int32" Name="Produto_id" Nullable="false" />
+    <Property Type="Int32" Name="UnidadesVendidas" Nullable="true" />
+    <Property Type="Decimal" Name="ValorTotal" Nullable="true" Precision="38" Scale="5" />
+  </ComplexType>
+</Schema>

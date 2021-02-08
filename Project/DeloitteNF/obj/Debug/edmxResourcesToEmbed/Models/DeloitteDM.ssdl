@@ -1,0 +1,85 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DeloitteModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Clientes">
+    <Key>
+      <PropertyRef Name="Cliente_id" />
+    </Key>
+    <Property Name="Cliente_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nome" Type="varchar" MaxLength="1000" />
+    <Property Name="Endereço" Type="varchar" MaxLength="1000" />
+    <Property Name="Tipo" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Fornecedores">
+    <Key>
+      <PropertyRef Name="Fornecedor_id" />
+    </Key>
+    <Property Name="Fornecedor_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nome" Type="varchar" MaxLength="500" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'NEWDESENV.dbo.FornecedorxProduto' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="FornecedorxProduto">
+    <Key>
+      <PropertyRef Name="Produto_id" />
+      <PropertyRef Name="Fornecedor_id" />
+    </Key>
+    <Property Name="Produto_id" Type="int" Nullable="false" />
+    <Property Name="Fornecedor_id" Type="int" Nullable="false" />
+    <Property Name="Preco" Type="decimal" Precision="18" Scale="0" />
+  </EntityType>
+  <EntityType Name="Produtos">
+    <Key>
+      <PropertyRef Name="Produto_id" />
+    </Key>
+    <Property Name="Produto_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nome" Type="varchar" MaxLength="500" />
+    <Property Name="Unidade" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <Association Name="FK_FornecedorxProduto_Fornecedores">
+    <End Role="Fornecedores" Type="Self.Fornecedores" Multiplicity="1" />
+    <End Role="FornecedorxProduto" Type="Self.FornecedorxProduto" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Fornecedores">
+        <PropertyRef Name="Fornecedor_id" />
+      </Principal>
+      <Dependent Role="FornecedorxProduto">
+        <PropertyRef Name="Fornecedor_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_FornecedorxProduto_Produtos">
+    <End Role="Produtos" Type="Self.Produtos" Multiplicity="1" />
+    <End Role="FornecedorxProduto" Type="Self.FornecedorxProduto" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Produtos">
+        <PropertyRef Name="Produto_id" />
+      </Principal>
+      <Dependent Role="FornecedorxProduto">
+        <PropertyRef Name="Produto_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="ClientsList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="ProductsList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="ProviderList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <EntityContainer Name="DeloitteModelStoreContainer">
+    <EntitySet Name="Clientes" EntityType="Self.Clientes" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Fornecedores" EntityType="Self.Fornecedores" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Produtos" EntityType="Self.Produtos" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="FornecedorxProduto" EntityType="Self.FornecedorxProduto" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [FornecedorxProduto].[Produto_id] AS [Produto_id], 
+    [FornecedorxProduto].[Fornecedor_id] AS [Fornecedor_id], 
+    [FornecedorxProduto].[Preco] AS [Preco]
+    FROM [dbo].[FornecedorxProduto] AS [FornecedorxProduto]</DefiningQuery>
+    </EntitySet>
+    <AssociationSet Name="FK_FornecedorxProduto_Fornecedores" Association="Self.FK_FornecedorxProduto_Fornecedores">
+      <End Role="Fornecedores" EntitySet="Fornecedores" />
+      <End Role="FornecedorxProduto" EntitySet="FornecedorxProduto" />
+    </AssociationSet>
+    <AssociationSet Name="FK_FornecedorxProduto_Produtos" Association="Self.FK_FornecedorxProduto_Produtos">
+      <End Role="Produtos" EntitySet="Produtos" />
+      <End Role="FornecedorxProduto" EntitySet="FornecedorxProduto" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

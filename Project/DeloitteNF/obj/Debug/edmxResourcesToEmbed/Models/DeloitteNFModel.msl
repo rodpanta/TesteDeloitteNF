@@ -1,0 +1,346 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="DeloitteNFModelStoreContainer" CdmEntityContainer="DeloitteNFEntities">
+    <EntitySetMapping Name="Clientes">
+      <EntityTypeMapping TypeName="DeloitteNFModel.Clientes">
+        <MappingFragment StoreEntitySet="Clientes">
+          <ScalarProperty Name="Cliente_id" ColumnName="Cliente_id" />
+          <ScalarProperty Name="Nome" ColumnName="Nome" />
+          <ScalarProperty Name="Endereço" ColumnName="Endereço" />
+          <ScalarProperty Name="Tipo" ColumnName="Tipo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Fornecedores">
+      <EntityTypeMapping TypeName="DeloitteNFModel.Fornecedores">
+        <MappingFragment StoreEntitySet="Fornecedores">
+          <ScalarProperty Name="Fornecedor_id" ColumnName="Fornecedor_id" />
+          <ScalarProperty Name="Nome" ColumnName="Nome" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ItensNotasFiscais">
+      <EntityTypeMapping TypeName="DeloitteNFModel.ItensNotasFiscais">
+        <MappingFragment StoreEntitySet="ItensNotasFiscais">
+          <ScalarProperty Name="Produto_id" ColumnName="Produto_id" />
+          <ScalarProperty Name="ItemNotaFiscal_id" ColumnName="ItemNotaFiscal_id" />
+          <ScalarProperty Name="NotaFiscal_id" ColumnName="NotaFiscal_id" />
+          <ScalarProperty Name="Quantidade" ColumnName="Quantidade" />
+          <ScalarProperty Name="Total" ColumnName="Total" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="NotasFiscais">
+      <EntityTypeMapping TypeName="DeloitteNFModel.NotasFiscais">
+        <MappingFragment StoreEntitySet="NotasFiscais">
+          <ScalarProperty Name="Emitida" ColumnName="Emitida" />
+          <ScalarProperty Name="NotaFiscal_id" ColumnName="NotaFiscal_id" />
+          <ScalarProperty Name="Cliente_id" ColumnName="Cliente_id" />
+          <ScalarProperty Name="Data" ColumnName="Data" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Produtos">
+      <EntityTypeMapping TypeName="DeloitteNFModel.Produtos">
+        <MappingFragment StoreEntitySet="Produtos">
+          <ScalarProperty Name="Fornecedor_id" ColumnName="Fornecedor_id" />
+          <ScalarProperty Name="Preco" ColumnName="Preco" />
+          <ScalarProperty Name="Produto_id" ColumnName="Produto_id" />
+          <ScalarProperty Name="Nome" ColumnName="Nome" />
+          <ScalarProperty Name="Unidade" ColumnName="Unidade" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="ClientsList" FunctionName="DeloitteNFModel.Store.ClientsList">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="DeloitteNFModel.ClientsList_Result">
+          <ScalarProperty Name="Cliente_id" ColumnName="Cliente_id" />
+          <ScalarProperty Name="Nome" ColumnName="Nome" />
+          <ScalarProperty Name="Endereço" ColumnName="Endereço" />
+          <ScalarProperty Name="Tipo" ColumnName="Tipo" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="InvoiceList" FunctionName="DeloitteNFModel.Store.InvoiceList">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="DeloitteNFModel.InvoiceList_Result">
+          <ScalarProperty Name="NotaFiscal_id" ColumnName="NotaFiscal_id" />
+          <ScalarProperty Name="Cliente_id" ColumnName="Cliente_id" />
+          <ScalarProperty Name="Data" ColumnName="Data" />
+          <ScalarProperty Name="Nome" ColumnName="Nome" />
+          <ScalarProperty Name="Endereço" ColumnName="Endereço" />
+          <ScalarProperty Name="TotalNota" ColumnName="TotalNota" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="ProductsList" FunctionName="DeloitteNFModel.Store.ProductsList">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="DeloitteNFModel.ProductsList_Result">
+          <ScalarProperty Name="nomefornec" ColumnName="nomefornec" />
+          <ScalarProperty Name="nomeprod" ColumnName="nomeprod" />
+          <ScalarProperty Name="Unidade" ColumnName="Unidade" />
+          <ScalarProperty Name="Preco" ColumnName="Preco" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="ProviderList" FunctionName="DeloitteNFModel.Store.ProviderList">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="DeloitteNFModel.ProviderList_Result">
+          <ScalarProperty Name="Fornecedor_id" ColumnName="Fornecedor_id" />
+          <ScalarProperty Name="Nome" ColumnName="Nome" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="stp_ClientesList" FunctionName="DeloitteNFModel.Store.ClientsList" />
+    <FunctionImportMapping FunctionImportName="stp_ProviderSPList" FunctionName="DeloitteNFModel.Store.ProviderList">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="DeloitteNFModel.stp_ProviderSPList_Result">
+          <ScalarProperty Name="Fornecedor_id" ColumnName="Fornecedor_id" />
+          <ScalarProperty Name="Nome" ColumnName="Nome" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="stp_ClientesResList" FunctionName="DeloitteNFModel.Store.ClientsList">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="DeloitteNFModel.stp_ClientesResList_Result">
+          <ScalarProperty Name="Cliente_id" ColumnName="Cliente_id" />
+          <ScalarProperty Name="Nome" ColumnName="Nome" />
+          <ScalarProperty Name="Endereço" ColumnName="Endereço" />
+          <ScalarProperty Name="Tipo" ColumnName="Tipo" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="InvoiceId" FunctionName="DeloitteNFModel.Store.InvoiceId">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="DeloitteNFModel.InvoiceId_Result">
+          <ScalarProperty Name="NotaFiscal_id" ColumnName="NotaFiscal_id" />
+          <ScalarProperty Name="Cliente_id" ColumnName="Cliente_id" />
+          <ScalarProperty Name="Data" ColumnName="Data" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="InvoiceItemList" FunctionName="DeloitteNFModel.Store.InvoiceItemList">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="DeloitteNFModel.InvoiceItemList_Result">
+          <ScalarProperty Name="ItemNotaFiscal_id" ColumnName="ItemNotaFiscal_id" />
+          <ScalarProperty Name="NotaFiscal_id" ColumnName="NotaFiscal_id" />
+          <ScalarProperty Name="Quantidade" ColumnName="Quantidade" />
+          <ScalarProperty Name="Total" ColumnName="Total" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="InvoiceItemsInsert" FunctionName="DeloitteNFModel.Store.InvoiceItemsInsert" />
+    <FunctionImportMapping FunctionImportName="stp_InvoiceInsert" FunctionName="DeloitteNFModel.Store.InvoiceInsert">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="DeloitteNFModel.stp_InvoiceInsertRes_Result">
+          <ScalarProperty Name="NotaFiscal_Id" ColumnName="NotaFiscal_Id" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="stp_InvoiceID" FunctionName="DeloitteNFModel.Store.InvoiceId">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="DeloitteNFModel.stp_InvoiceID_Result">
+          <ScalarProperty Name="NotaFiscal_id" ColumnName="NotaFiscal_id" />
+          <ScalarProperty Name="Cliente_id" ColumnName="Cliente_id" />
+          <ScalarProperty Name="Data" ColumnName="Data" />
+          <ScalarProperty Name="Nome" ColumnName="Nome" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="ClientsInsert" FunctionName="DeloitteNFModel.Store.ClientsInsert" />
+    <FunctionImportMapping FunctionImportName="stp_ClientsInsert" FunctionName="DeloitteNFModel.Store.ClientsInsert">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="DeloitteNFModel.stp_ClientsInsert_Result">
+          <ScalarProperty Name="Cliente_Id" ColumnName="Cliente_Id" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="ClientsId" FunctionName="DeloitteNFModel.Store.ClientsId">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="DeloitteNFModel.ClientsId_Result">
+          <ScalarProperty Name="Cliente_id" ColumnName="Cliente_id" />
+          <ScalarProperty Name="Nome" ColumnName="Nome" />
+          <ScalarProperty Name="Endereço" ColumnName="Endereço" />
+          <ScalarProperty Name="Tipo" ColumnName="Tipo" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="stp_ClientsId" FunctionName="DeloitteNFModel.Store.ClientsId">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="DeloitteNFModel.stp_ClientsId_Result">
+          <ScalarProperty Name="Cliente_id" ColumnName="Cliente_id" />
+          <ScalarProperty Name="Nome" ColumnName="Nome" />
+          <ScalarProperty Name="Endereço" ColumnName="Endereço" />
+          <ScalarProperty Name="Tipo" ColumnName="Tipo" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="ClientsUpdate" FunctionName="DeloitteNFModel.Store.ClientsUpdate" />
+    <FunctionImportMapping FunctionImportName="stp_ClientsUpdate" FunctionName="DeloitteNFModel.Store.ClientsUpdate">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="DeloitteNFModel.stp_ClientsUpdate_Result">
+          <ScalarProperty Name="Cliente_Id" ColumnName="Cliente_Id" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="ClientsDelete" FunctionName="DeloitteNFModel.Store.ClientsDelete" />
+    <FunctionImportMapping FunctionImportName="stp_ClientsDelete" FunctionName="DeloitteNFModel.Store.ClientsDelete" />
+    <FunctionImportMapping FunctionImportName="InvoiceListBestCustomers" FunctionName="DeloitteNFModel.Store.InvoiceListBestCustomers">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="DeloitteNFModel.InvoiceListBestCustomers_Result">
+          <ScalarProperty Name="nome" ColumnName="nome" />
+          <ScalarProperty Name="Total" ColumnName="Total" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="stp_BestCustomers" FunctionName="DeloitteNFModel.Store.InvoiceListBestCustomers">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="DeloitteNFModel.stp_BestCustomers_Result">
+          <ScalarProperty Name="nome" ColumnName="nome" />
+          <ScalarProperty Name="Total" ColumnName="Total" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="ProvidersDelete" FunctionName="DeloitteNFModel.Store.ProvidersDelete" />
+    <FunctionImportMapping FunctionImportName="ProvidersId" FunctionName="DeloitteNFModel.Store.ProvidersId">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="DeloitteNFModel.ProvidersId_Result">
+          <ScalarProperty Name="Fornecedor_id" ColumnName="Fornecedor_id" />
+          <ScalarProperty Name="Nome" ColumnName="Nome" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="ProvidersInsert" FunctionName="DeloitteNFModel.Store.ProvidersInsert" />
+    <FunctionImportMapping FunctionImportName="ProvidersUpdate" FunctionName="DeloitteNFModel.Store.ProvidersUpdate" />
+    <FunctionImportMapping FunctionImportName="stp_ProvidersInsert" FunctionName="DeloitteNFModel.Store.ProvidersInsert">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="DeloitteNFModel.stp_ProvidersInsert_Result">
+          <ScalarProperty Name="Fornecedor_Id" ColumnName="Fornecedor_Id" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="stp_ProvidersId" FunctionName="DeloitteNFModel.Store.ProvidersId">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="DeloitteNFModel.stp_ProvidersId_Result">
+          <ScalarProperty Name="Fornecedor_id" ColumnName="Fornecedor_id" />
+          <ScalarProperty Name="Nome" ColumnName="Nome" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="stp_ProvidersUpdate" FunctionName="DeloitteNFModel.Store.ProvidersUpdate">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="DeloitteNFModel.stp_ProvidersUpdate_Result">
+          <ScalarProperty Name="Fornecedor_Id" ColumnName="Fornecedor_Id" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="stp_ProvidersDelete" FunctionName="DeloitteNFModel.Store.ProvidersDelete" />
+    <FunctionImportMapping FunctionImportName="stp_ProductsList" FunctionName="DeloitteNFModel.Store.ProductsList">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="DeloitteNFModel.stp_ProductsList_Result">
+          <ScalarProperty Name="nomefornec" ColumnName="nomefornec" />
+          <ScalarProperty Name="nomeprod" ColumnName="nomeprod" />
+          <ScalarProperty Name="Unidade" ColumnName="Unidade" />
+          <ScalarProperty Name="Preco" ColumnName="Preco" />
+          <ScalarProperty Name="Produto_id" ColumnName="Produto_id" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="ProductsId" FunctionName="DeloitteNFModel.Store.ProductsId">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="DeloitteNFModel.ProductsId_Result">
+          <ScalarProperty Name="Produto_id" ColumnName="Produto_id" />
+          <ScalarProperty Name="nomeprod" ColumnName="nomeprod" />
+          <ScalarProperty Name="Unidade" ColumnName="Unidade" />
+          <ScalarProperty Name="Preco" ColumnName="Preco" />
+          <ScalarProperty Name="Fornecedor_id" ColumnName="Fornecedor_id" />
+          <ScalarProperty Name="nomefornec" ColumnName="nomefornec" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="ProductsInsert" FunctionName="DeloitteNFModel.Store.ProductsInsert" />
+    <FunctionImportMapping FunctionImportName="ProductsUpdate" FunctionName="DeloitteNFModel.Store.ProductsUpdate" />
+    <FunctionImportMapping FunctionImportName="stpProductsId" FunctionName="DeloitteNFModel.Store.ProductsId">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="DeloitteNFModel.stpProductsId_Result">
+          <ScalarProperty Name="Produto_id" ColumnName="Produto_id" />
+          <ScalarProperty Name="nomeprod" ColumnName="nomeprod" />
+          <ScalarProperty Name="Unidade" ColumnName="Unidade" />
+          <ScalarProperty Name="Preco" ColumnName="Preco" />
+          <ScalarProperty Name="Fornecedor_id" ColumnName="Fornecedor_id" />
+          <ScalarProperty Name="nomefornec" ColumnName="nomefornec" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="stp_ProductsUpdate" FunctionName="DeloitteNFModel.Store.ProductsUpdate">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="DeloitteNFModel.stp_ProductsUpdate_Result">
+          <ScalarProperty Name="Produto_id" ColumnName="Produto_id" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="stp_ProductsInsert" FunctionName="DeloitteNFModel.Store.ProductsInsert">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="DeloitteNFModel.stp_ProductsInsert_Result">
+          <ScalarProperty Name="Produto_Id" ColumnName="Produto_Id" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="stp_ProductsDelete" FunctionName="DeloitteNFModel.Store.ProductsDelete" />
+    <FunctionImportMapping FunctionImportName="stp_STPProductsDelete" FunctionName="DeloitteNFModel.Store.ProductsDelete" />
+    <FunctionImportMapping FunctionImportName="stp_InvoiceList" FunctionName="DeloitteNFModel.Store.InvoiceList">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="DeloitteNFModel.stp_InvoiceList_Result">
+          <ScalarProperty Name="NotaFiscal_id" ColumnName="NotaFiscal_id" />
+          <ScalarProperty Name="Cliente_id" ColumnName="Cliente_id" />
+          <ScalarProperty Name="Data" ColumnName="Data" />
+          <ScalarProperty Name="Nome" ColumnName="Nome" />
+          <ScalarProperty Name="Endereço" ColumnName="Endereço" />
+          <ScalarProperty Name="TotalNota" ColumnName="TotalNota" />
+          <ScalarProperty Name="Emitida" ColumnName="Emitida" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="stp_InvoiceItemsInsert" FunctionName="DeloitteNFModel.Store.InvoiceItemsInsert" />
+    <FunctionImportMapping FunctionImportName="stp_InvoiceItemList" FunctionName="DeloitteNFModel.Store.InvoiceItemList">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="DeloitteNFModel.stp_InvoiceItemList_Result">
+          <ScalarProperty Name="ItemNotaFiscal_id" ColumnName="ItemNotaFiscal_id" />
+          <ScalarProperty Name="NotaFiscal_id" ColumnName="NotaFiscal_id" />
+          <ScalarProperty Name="Produto_id" ColumnName="Produto_id" />
+          <ScalarProperty Name="Quantidade" ColumnName="Quantidade" />
+          <ScalarProperty Name="Total" ColumnName="Total" />
+          <ScalarProperty Name="Nome" ColumnName="Nome" />
+          <ScalarProperty Name="Unidade" ColumnName="Unidade" />
+          <ScalarProperty Name="Preco" ColumnName="Preco" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="InvoiceDelete" FunctionName="DeloitteNFModel.Store.InvoiceDelete" />
+    <FunctionImportMapping FunctionImportName="stp_InvoiceDelete" FunctionName="DeloitteNFModel.Store.InvoiceDelete" />
+    <FunctionImportMapping FunctionImportName="InvoiceEmitir" FunctionName="DeloitteNFModel.Store.InvoiceEmitir" />
+    <FunctionImportMapping FunctionImportName="stp_InvoiceEmitir" FunctionName="DeloitteNFModel.Store.InvoiceEmitir" />
+    <FunctionImportMapping FunctionImportName="InvoiceItemsDelete" FunctionName="DeloitteNFModel.Store.InvoiceItemsDelete" />
+    <FunctionImportMapping FunctionImportName="stp_InvoiceItemsDelete" FunctionName="DeloitteNFModel.Store.InvoiceItemsDelete" />
+    <FunctionImportMapping FunctionImportName="InvoiceListProductsSales" FunctionName="DeloitteNFModel.Store.InvoiceListProductsSales">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="DeloitteNFModel.InvoiceListProductsSales_Result">
+          <ScalarProperty Name="Nome" ColumnName="Nome" />
+          <ScalarProperty Name="Produto_id" ColumnName="Produto_id" />
+          <ScalarProperty Name="UnidadesVendidas" ColumnName="UnidadesVendidas" />
+          <ScalarProperty Name="ValorTotal" ColumnName="ValorTotal" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="stp_InvoiceListProductsSales" FunctionName="DeloitteNFModel.Store.InvoiceListProductsSales">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="DeloitteNFModel.stp_InvoiceListProductsSales_Result">
+          <ScalarProperty Name="Nome" ColumnName="Nome" />
+          <ScalarProperty Name="Produto_id" ColumnName="Produto_id" />
+          <ScalarProperty Name="UnidadesVendidas" ColumnName="UnidadesVendidas" />
+          <ScalarProperty Name="ValorTotal" ColumnName="ValorTotal" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+  </EntityContainerMapping>
+</Mapping>

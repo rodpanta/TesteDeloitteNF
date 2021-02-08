@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="a9959f3d19b5440cac8d1bbecc25a9c2" Name="Diagram1">
+        <EntityTypeShape EntityType="DeloitteNFModel.Clientes" Width="1.5" PointX="0.75" PointY="8.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DeloitteNFModel.Fornecedores" Width="1.5" PointX="0.75" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DeloitteNFModel.ItensNotasFiscais" Width="1.5" PointX="3.875" PointY="2.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DeloitteNFModel.NotasFiscais" Width="1.5" PointX="5.75" PointY="6.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DeloitteNFModel.Produtos" Width="1.5" PointX="0.75" PointY="5.25" IsExpanded="true" />
+        <AssociationConnector Association="DeloitteNFModel.FK_NotasFiscais_Clientes" ManuallyRouted="false" />
+        <AssociationConnector Association="DeloitteNFModel.FK_ItensNotasFiscais_NotasFiscais" ManuallyRouted="false" />
+        <AssociationConnector Association="DeloitteNFModel.FK_Produtos_Fornecedores" />
+        <AssociationConnector Association="DeloitteNFModel.FK_ItensNotasFiscais_Produtos" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

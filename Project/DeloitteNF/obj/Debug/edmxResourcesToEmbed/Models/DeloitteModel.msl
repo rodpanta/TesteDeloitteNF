@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="DeloitteNFModelStoreContainer" CdmEntityContainer="DeloitteNFEntities">
+    <EntitySetMapping Name="Clientes">
+      <EntityTypeMapping TypeName="DeloitteNFModel.Clientes">
+        <MappingFragment StoreEntitySet="Clientes">
+          <ScalarProperty Name="Cliente_id" ColumnName="Cliente_id" />
+          <ScalarProperty Name="Nome" ColumnName="Nome" />
+          <ScalarProperty Name="Endereço" ColumnName="Endereço" />
+          <ScalarProperty Name="Tipo" ColumnName="Tipo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Fornecedores">
+      <EntityTypeMapping TypeName="DeloitteNFModel.Fornecedores">
+        <MappingFragment StoreEntitySet="Fornecedores">
+          <ScalarProperty Name="Fornecedor_id" ColumnName="Fornecedor_id" />
+          <ScalarProperty Name="Nome" ColumnName="Nome" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Produtos">
+      <EntityTypeMapping TypeName="DeloitteNFModel.Produtos">
+        <MappingFragment StoreEntitySet="Produtos">
+          <ScalarProperty Name="Produto_id" ColumnName="Produto_id" />
+          <ScalarProperty Name="Nome" ColumnName="Nome" />
+          <ScalarProperty Name="Unidade" ColumnName="Unidade" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="FornecedorxProduto">
+      <EntityTypeMapping TypeName="DeloitteNFModel.FornecedorxProduto">
+        <MappingFragment StoreEntitySet="FornecedorxProduto">
+          <ScalarProperty Name="Produto_id" ColumnName="Produto_id" />
+          <ScalarProperty Name="Fornecedor_id" ColumnName="Fornecedor_id" />
+          <ScalarProperty Name="Preco" ColumnName="Preco" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="ClientsList" FunctionName="DeloitteNFModel.Store.ClientsList">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="DeloitteNFModel.ClientsList_Result">
+          <ScalarProperty Name="Cliente_id" ColumnName="Cliente_id" />
+          <ScalarProperty Name="Nome" ColumnName="Nome" />
+          <ScalarProperty Name="Endereço" ColumnName="Endereço" />
+          <ScalarProperty Name="Tipo" ColumnName="Tipo" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="ProductsList" FunctionName="DeloitteNFModel.Store.ProductsList">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="DeloitteNFModel.ProductsList_Result">
+          <ScalarProperty Name="nomefornec" ColumnName="nomefornec" />
+          <ScalarProperty Name="nomeprod" ColumnName="nomeprod" />
+          <ScalarProperty Name="Unidade" ColumnName="Unidade" />
+          <ScalarProperty Name="Preco" ColumnName="Preco" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="ProviderList" FunctionName="DeloitteNFModel.Store.ProviderList">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="DeloitteNFModel.ProviderList_Result">
+          <ScalarProperty Name="Fornecedor_id" ColumnName="Fornecedor_id" />
+          <ScalarProperty Name="Nome" ColumnName="Nome" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="stp_ClientesList" FunctionName="DeloitteNFModel.Store.ClientsList" />
+    <FunctionImportMapping FunctionImportName="stp_ProviderList" FunctionName="DeloitteNFModel.Store.ProviderList" />
+    <FunctionImportMapping FunctionImportName="stp_ProductsList" FunctionName="DeloitteNFModel.Store.ProductsList">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="DeloitteNFModel.stp_ProductsList_Result">
+          <ScalarProperty Name="nomefornec" ColumnName="nomefornec" />
+          <ScalarProperty Name="nomeprod" ColumnName="nomeprod" />
+          <ScalarProperty Name="Unidade" ColumnName="Unidade" />
+          <ScalarProperty Name="Preco" ColumnName="Preco" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+  </EntityContainerMapping>
+</Mapping>

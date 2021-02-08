@@ -1,0 +1,101 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+
+<div class="row">
+
+    <div class="col-lg-9 main-chart">
+        <!--CUSTOM CHART START -->
+        <div class="border-head">
+        </div>
+        <!--custom chart end-->
+        <div class="col-md-12">
+            <div class="content-panel">
+                <h4><i class="fa fa-angle-right"></i>Melhores Clientes</h4>
+                <hr>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Nome</th>
+                            <th>Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var best in ViewBag.Best)
+                        {
+                            
+                            <tr>
+                                <td>@best.nome</td>
+                                <td>@string.Format("{0:C}", best.Total)</td>
+                            </tr>
+                        }
+                        </tbody>
+                </table>
+            </div>
+        </div>
+        <!-- /row -->
+
+    </div>
+
+
+    <div class="col-lg-3 ds">
+        <!--COMPLETED ACTIONS DONUTS CHART-->
+        <div class="donut-main">
+            <h4>Total de Vendas nos últimos 30 dias: @string.Format("{0:C}", @ViewBag.TotalVendasMes)</h4>
+            <canvas id="newchart" height="130" width="130"></canvas>
+            <script>
+                var doughnutData = [{
+                    value: @ViewBag.Percentual,
+                    color: "#4ECDC4"
+                },
+                {
+                    value:  @(100- @ViewBag.Percentual),
+                    color: "#fdfdfd"
+                }
+                ];
+                var myDoughnut = new Chart(document.getElementById("newchart").getContext("2d")).Doughnut(doughnutData);
+            </script>
+        </div>
+        <!--NEW EARNING STATS -->
+        <div class="panel terques-chart">
+            <div class="panel-body">
+                <div class="chart">
+                    <div class="centered">
+                        <span>Vendas em 24hrs</span>
+                        <strong>@string.Format("{0:C}", @ViewBag.TotalVendasDia) | @ViewBag.Percentual %</strong>
+                    </div>
+                    <br>
+                </div>
+            </div>
+        </div>
+        <!--new earning end-->
+        <!-- RECENT ACTIVITIES SECTION -->
+        <h4 class="centered mt">Últimas Vendas</h4>
+        <!-- First Activity -->
+
+        @foreach (var venda in ViewBag.UltimasVendas)
+        {
+            <div class="desc">
+                <div class="thumb">
+                    <span class="badge bg-theme"><i class="fa fa-clock-o"></i></span>
+                </div>
+                <div class="details">
+                    <p>
+                        <muted>@venda.Data</muted>
+                        <br />
+                        <a href="#">@venda.Nome</a> comprou um total de  @string.Format("{0:C}", @venda.TotalNota) <br />
+                    </p>
+                </div>
+            </div>
+
+        }
+
+
+
+    </div>
+
+</div>
+
+
+

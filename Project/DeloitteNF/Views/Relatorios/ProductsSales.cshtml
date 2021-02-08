@@ -1,0 +1,62 @@
+﻿@model IEnumerable<DeloitteNF.Models.stp_InvoiceListProductsSales_Result>
+
+@{
+    ViewBag.Title = "ProductsSales";
+}
+
+
+        <div class="col-lg-12 mt">
+            <div class="row content-panel">
+                <div class="col-lg-10 col-lg-offset-1">
+                    <div class="invoice-body">
+                        <div class="pull-left">
+                            <h1>DELOITTE</h1>
+                            <address>
+                                <strong>Golden Tower - Av. Dr. Chucri Zaidan, 1240 - 4º /12º Andar</strong><br>
+                                Chácara Santo Antônio (Zona Sul), São Paulo - SP<br>
+                                04709-111<br>
+                            </address>
+                        </div>
+                        <!-- /pull-left -->
+                        <div class="pull-right">
+                        </div>
+                        <!-- /pull-right -->
+                        <div class="clearfix"></div>
+                        <strong>Relatório de Vendas por Produto</strong>
+                        <br>
+                        <br>
+                        <br>
+
+
+                        <!-- /col-lg-10 -->
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th style="width:600px" class="text-left">Produto</th>
+                                    <th class="text-left">Unidades Vendidas</th>
+                                    <th style="width:140px" class="text-left">Valor Total</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Nome)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.UnidadesVendidas)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.ValorTotal)
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                        <br>
+                        <br>
+                    </div>
+                    <!--/col-lg-12 mt -->
+
+

@@ -1,0 +1,1033 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="DeloitteNFModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Clientes">
+          <Key>
+            <PropertyRef Name="Cliente_id" />
+          </Key>
+          <Property Name="Cliente_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nome" Type="varchar" MaxLength="1000" />
+          <Property Name="Endereço" Type="varchar" MaxLength="1000" />
+          <Property Name="Tipo" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Fornecedores">
+          <Key>
+            <PropertyRef Name="Fornecedor_id" />
+          </Key>
+          <Property Name="Fornecedor_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nome" Type="varchar" MaxLength="500" />
+        </EntityType>
+        <EntityType Name="ItensNotasFiscais">
+          <Key>
+            <PropertyRef Name="ItemNotaFiscal_id" />
+          </Key>
+          <Property Name="ItemNotaFiscal_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NotaFiscal_id" Type="int" Nullable="false" />
+          <Property Name="Produto_id" Type="int" Nullable="false" />
+          <Property Name="Quantidade" Type="int" Nullable="false" />
+          <Property Name="Total" Type="decimal" Precision="18" Scale="5" Nullable="false" />
+        </EntityType>
+        <EntityType Name="NotasFiscais">
+          <Key>
+            <PropertyRef Name="NotaFiscal_id" />
+          </Key>
+          <Property Name="NotaFiscal_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Cliente_id" Type="int" Nullable="false" />
+          <Property Name="Data" Type="datetime" Nullable="false" />
+          <Property Name="Emitida" Type="bit" />
+        </EntityType>
+        <EntityType Name="Produtos">
+          <Key>
+            <PropertyRef Name="Produto_id" />
+          </Key>
+          <Property Name="Produto_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nome" Type="varchar" MaxLength="500" />
+          <Property Name="Unidade" Type="varchar" MaxLength="50" />
+          <Property Name="Preco" Type="decimal" Precision="18" Scale="5" />
+          <Property Name="Fornecedor_id" Type="int" />
+        </EntityType>
+        <Association Name="FK_ItensNotasFiscais_NotasFiscais">
+          <End Role="NotasFiscais" Type="Self.NotasFiscais" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="ItensNotasFiscais" Type="Self.ItensNotasFiscais" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NotasFiscais">
+              <PropertyRef Name="NotaFiscal_id" />
+            </Principal>
+            <Dependent Role="ItensNotasFiscais">
+              <PropertyRef Name="NotaFiscal_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ItensNotasFiscais_Produtos">
+          <End Role="Produtos" Type="Self.Produtos" Multiplicity="1" />
+          <End Role="ItensNotasFiscais" Type="Self.ItensNotasFiscais" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Produtos">
+              <PropertyRef Name="Produto_id" />
+            </Principal>
+            <Dependent Role="ItensNotasFiscais">
+              <PropertyRef Name="Produto_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_NotasFiscais_Clientes">
+          <End Role="Clientes" Type="Self.Clientes" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="NotasFiscais" Type="Self.NotasFiscais" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clientes">
+              <PropertyRef Name="Cliente_id" />
+            </Principal>
+            <Dependent Role="NotasFiscais">
+              <PropertyRef Name="Cliente_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Produtos_Fornecedores">
+          <End Role="Fornecedores" Type="Self.Fornecedores" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Produtos" Type="Self.Produtos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Fornecedores">
+              <PropertyRef Name="Fornecedor_id" />
+            </Principal>
+            <Dependent Role="Produtos">
+              <PropertyRef Name="Fornecedor_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="ClientsDelete" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Clienteid" Type="int" Mode="In" />
+        </Function>
+        <Function Name="ClientsId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Clienteid" Type="int" Mode="In" />
+        </Function>
+        <Function Name="ClientsInsert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Nome" Type="varchar" Mode="In" />
+          <Parameter Name="Endereco" Type="varchar" Mode="In" />
+          <Parameter Name="Tipo" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="ClientsList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="ClientsUpdate" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ClienteId" Type="int" Mode="In" />
+          <Parameter Name="Nome" Type="varchar" Mode="In" />
+          <Parameter Name="Endereco" Type="varchar" Mode="In" />
+          <Parameter Name="Tipo" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="InvoiceDelete" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="NotaFiscalid" Type="int" Mode="In" />
+        </Function>
+        <Function Name="InvoiceEmitir" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="NotaFiscalid" Type="int" Mode="In" />
+        </Function>
+        <Function Name="InvoiceId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="NotaFiscalid" Type="int" Mode="In" />
+        </Function>
+        <Function Name="InvoiceInsert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Clienteid" Type="int" Mode="In" />
+        </Function>
+        <Function Name="InvoiceItemList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="NotaFiscalid" Type="int" Mode="In" />
+        </Function>
+        <Function Name="InvoiceItemsDelete" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ItemNotaFiscalid" Type="int" Mode="In" />
+        </Function>
+        <Function Name="InvoiceItemsInsert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="NotaFiscalid" Type="int" Mode="In" />
+          <Parameter Name="Produtoid" Type="int" Mode="In" />
+          <Parameter Name="Quantidade" Type="int" Mode="In" />
+          <Parameter Name="Preco" Type="decimal" Mode="In" />
+        </Function>
+        <Function Name="InvoiceList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="InvoiceListBestCustomers" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="InvoiceListProductsSales" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="ProductsDelete" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Productid" Type="int" Mode="In" />
+        </Function>
+        <Function Name="ProductsId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Produtoid" Type="int" Mode="In" />
+        </Function>
+        <Function Name="ProductsInsert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Nome" Type="varchar" Mode="In" />
+          <Parameter Name="Unidade" Type="varchar" Mode="In" />
+          <Parameter Name="Preco" Type="decimal" Mode="In" />
+          <Parameter Name="Fornecedorid" Type="int" Mode="In" />
+        </Function>
+        <Function Name="ProductsList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="ProductsUpdate" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Produtoid" Type="int" Mode="In" />
+          <Parameter Name="Nome" Type="varchar" Mode="In" />
+          <Parameter Name="Unidade" Type="varchar" Mode="In" />
+          <Parameter Name="Preco" Type="decimal" Mode="In" />
+          <Parameter Name="Fornecedorid" Type="int" Mode="In" />
+        </Function>
+        <Function Name="ProviderList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="ProvidersDelete" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Fornecedorid" Type="int" Mode="In" />
+        </Function>
+        <Function Name="ProvidersId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Fornecedorid" Type="int" Mode="In" />
+        </Function>
+        <Function Name="ProvidersInsert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Nome" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="ProvidersUpdate" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="FornecedorId" Type="int" Mode="In" />
+          <Parameter Name="Nome" Type="varchar" Mode="In" />
+        </Function>
+        <EntityContainer Name="DeloitteNFModelStoreContainer">
+          <EntitySet Name="Clientes" EntityType="Self.Clientes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Fornecedores" EntityType="Self.Fornecedores" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ItensNotasFiscais" EntityType="Self.ItensNotasFiscais" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="NotasFiscais" EntityType="Self.NotasFiscais" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Produtos" EntityType="Self.Produtos" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_ItensNotasFiscais_NotasFiscais" Association="Self.FK_ItensNotasFiscais_NotasFiscais">
+            <End Role="NotasFiscais" EntitySet="NotasFiscais" />
+            <End Role="ItensNotasFiscais" EntitySet="ItensNotasFiscais" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ItensNotasFiscais_Produtos" Association="Self.FK_ItensNotasFiscais_Produtos">
+            <End Role="Produtos" EntitySet="Produtos" />
+            <End Role="ItensNotasFiscais" EntitySet="ItensNotasFiscais" />
+          </AssociationSet>
+          <AssociationSet Name="FK_NotasFiscais_Clientes" Association="Self.FK_NotasFiscais_Clientes">
+            <End Role="Clientes" EntitySet="Clientes" />
+            <End Role="NotasFiscais" EntitySet="NotasFiscais" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Produtos_Fornecedores" Association="Self.FK_Produtos_Fornecedores">
+            <End Role="Fornecedores" EntitySet="Fornecedores" />
+            <End Role="Produtos" EntitySet="Produtos" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DeloitteNFModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Clientes">
+          <Key>
+            <PropertyRef Name="Cliente_id" />
+          </Key>
+          <Property Name="Cliente_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nome" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="Endereço" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="Tipo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="NotasFiscais" Relationship="Self.FK_NotasFiscais_Clientes" FromRole="Clientes" ToRole="NotasFiscais" />
+        </EntityType>
+        <EntityType Name="Fornecedores">
+          <Key>
+            <PropertyRef Name="Fornecedor_id" />
+          </Key>
+          <Property Name="Fornecedor_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nome" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Produtos" Relationship="DeloitteNFModel.FK_Produtos_Fornecedores" FromRole="Fornecedores" ToRole="Produtos" />
+        </EntityType>
+        <EntityType Name="ItensNotasFiscais">
+          <Key>
+            <PropertyRef Name="ItemNotaFiscal_id" />
+          </Key>
+          <Property Name="ItemNotaFiscal_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NotaFiscal_id" Type="Int32" Nullable="false" />
+          <Property Name="Quantidade" Type="Int32" Nullable="false" />
+          <Property Name="Total" Type="Decimal" Precision="18" Scale="5" Nullable="false" />
+          <NavigationProperty Name="NotasFiscais" Relationship="Self.FK_ItensNotasFiscais_NotasFiscais" FromRole="ItensNotasFiscais" ToRole="NotasFiscais" />
+          <Property Name="Produto_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Produtos" Relationship="DeloitteNFModel.FK_ItensNotasFiscais_Produtos" FromRole="ItensNotasFiscais" ToRole="Produtos" />
+        </EntityType>
+        <EntityType Name="NotasFiscais">
+          <Key>
+            <PropertyRef Name="NotaFiscal_id" />
+          </Key>
+          <Property Name="NotaFiscal_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Cliente_id" Type="Int32" Nullable="false" />
+          <Property Name="Data" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Clientes" Relationship="Self.FK_NotasFiscais_Clientes" FromRole="NotasFiscais" ToRole="Clientes" />
+          <NavigationProperty Name="ItensNotasFiscais" Relationship="Self.FK_ItensNotasFiscais_NotasFiscais" FromRole="NotasFiscais" ToRole="ItensNotasFiscais" />
+          <Property Name="Emitida" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="Produtos">
+          <Key>
+            <PropertyRef Name="Produto_id" />
+          </Key>
+          <Property Name="Produto_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nome" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="Unidade" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Preco" Type="Decimal" Precision="18" Scale="5" />
+          <Property Name="Fornecedor_id" Type="Int32" />
+          <NavigationProperty Name="Fornecedores" Relationship="DeloitteNFModel.FK_Produtos_Fornecedores" FromRole="Produtos" ToRole="Fornecedores" />
+          <NavigationProperty Name="ItensNotasFiscais" Relationship="DeloitteNFModel.FK_ItensNotasFiscais_Produtos" FromRole="Produtos" ToRole="ItensNotasFiscais" />
+        </EntityType>
+        <Association Name="FK_NotasFiscais_Clientes">
+          <End Role="Clientes" Type="Self.Clientes" Multiplicity="1" />
+          <End Role="NotasFiscais" Type="Self.NotasFiscais" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clientes">
+              <PropertyRef Name="Cliente_id" />
+            </Principal>
+            <Dependent Role="NotasFiscais">
+              <PropertyRef Name="Cliente_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ItensNotasFiscais_NotasFiscais">
+          <End Role="NotasFiscais" Type="Self.NotasFiscais" Multiplicity="1" />
+          <End Role="ItensNotasFiscais" Type="Self.ItensNotasFiscais" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NotasFiscais">
+              <PropertyRef Name="NotaFiscal_id" />
+            </Principal>
+            <Dependent Role="ItensNotasFiscais">
+              <PropertyRef Name="NotaFiscal_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DeloitteNFEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Clientes" EntityType="Self.Clientes" />
+          <EntitySet Name="Fornecedores" EntityType="Self.Fornecedores" />
+          <EntitySet Name="ItensNotasFiscais" EntityType="Self.ItensNotasFiscais" />
+          <EntitySet Name="NotasFiscais" EntityType="Self.NotasFiscais" />
+          <EntitySet Name="Produtos" EntityType="Self.Produtos" />
+          <AssociationSet Name="FK_NotasFiscais_Clientes" Association="Self.FK_NotasFiscais_Clientes">
+            <End Role="Clientes" EntitySet="Clientes" />
+            <End Role="NotasFiscais" EntitySet="NotasFiscais" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ItensNotasFiscais_NotasFiscais" Association="Self.FK_ItensNotasFiscais_NotasFiscais">
+            <End Role="NotasFiscais" EntitySet="NotasFiscais" />
+            <End Role="ItensNotasFiscais" EntitySet="ItensNotasFiscais" />
+          </AssociationSet>
+          <FunctionImport Name="ClientsList" ReturnType="Collection(DeloitteNFModel.ClientsList_Result)" />
+          <FunctionImport Name="InvoiceList" ReturnType="Collection(DeloitteNFModel.InvoiceList_Result)" />
+          <FunctionImport Name="ProductsList" ReturnType="Collection(DeloitteNFModel.ProductsList_Result)" />
+          <FunctionImport Name="ProviderList" ReturnType="Collection(DeloitteNFModel.ProviderList_Result)" />
+          <FunctionImport Name="stp_ClientesList" EntitySet="Clientes" ReturnType="Collection(DeloitteNFModel.Clientes)" />
+          <FunctionImport Name="stp_ProviderSPList" ReturnType="Collection(DeloitteNFModel.stp_ProviderSPList_Result)" />
+          <FunctionImport Name="stp_ClientesResList" ReturnType="Collection(DeloitteNFModel.stp_ClientesResList_Result)" />
+          <FunctionImport Name="InvoiceId" ReturnType="Collection(DeloitteNFModel.InvoiceId_Result)">
+          <Parameter Name="NotaFiscalid" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="InvoiceItemList" ReturnType="Collection(DeloitteNFModel.InvoiceItemList_Result)">
+          <Parameter Name="NotaFiscalid" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="InvoiceItemsInsert">
+            <Parameter Name="NotaFiscalid" Mode="In" Type="Int32" />
+            <Parameter Name="Produtoid" Mode="In" Type="Int32" />
+            <Parameter Name="Quantidade" Mode="In" Type="Int32" />
+            <Parameter Name="Preco" Mode="In" Type="Decimal" />
+          </FunctionImport>
+          <FunctionImport Name="stp_InvoiceInsert" ReturnType="Collection(DeloitteNFModel.stp_InvoiceInsertRes_Result)">
+          <Parameter Name="Clienteid" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="stp_InvoiceID" ReturnType="Collection(DeloitteNFModel.stp_InvoiceID_Result)">
+          <Parameter Name="NotaFiscalid" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="ClientsInsert" ReturnType="Collection(Decimal)">
+            <Parameter Name="Nome" Mode="In" Type="String" />
+            <Parameter Name="Endereco" Mode="In" Type="String" />
+            <Parameter Name="Tipo" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="stp_ClientsInsert" ReturnType="Collection(DeloitteNFModel.stp_ClientsInsert_Result)">
+            <Parameter Name="Nome" Mode="In" Type="String" />
+            <Parameter Name="Endereco" Mode="In" Type="String" />
+            <Parameter Name="Tipo" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="ClientsId" ReturnType="Collection(DeloitteNFModel.ClientsId_Result)">
+          <Parameter Name="Clienteid" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="stp_ClientsId" ReturnType="Collection(DeloitteNFModel.stp_ClientsId_Result)">
+          <Parameter Name="Clienteid" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="ClientsUpdate" ReturnType="Collection(Decimal)">
+            <Parameter Name="ClienteId" Mode="In" Type="Int32" />
+            <Parameter Name="Nome" Mode="In" Type="String" />
+            <Parameter Name="Endereco" Mode="In" Type="String" />
+            <Parameter Name="Tipo" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="stp_ClientsUpdate" ReturnType="Collection(DeloitteNFModel.stp_ClientsUpdate_Result)">
+            <Parameter Name="ClienteId" Mode="In" Type="Int32" />
+            <Parameter Name="Nome" Mode="In" Type="String" />
+            <Parameter Name="Endereco" Mode="In" Type="String" />
+            <Parameter Name="Tipo" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="ClientsDelete">
+          <Parameter Name="Clienteid" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="stp_ClientsDelete">
+          <Parameter Name="Clienteid" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="stp_BestCostumers" ReturnType="Collection(DeloitteNFModel.stp_BestCostumers_Result)" />
+          <FunctionImport Name="InvoiceListBestCustomers" ReturnType="Collection(DeloitteNFModel.InvoiceListBestCustomers_Result)" />
+          <FunctionImport Name="stp_BestCustomers" ReturnType="Collection(DeloitteNFModel.stp_BestCustomers_Result)" />
+          <FunctionImport Name="ProvidersDelete">
+          <Parameter Name="Fornecedorid" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="ProvidersId" ReturnType="Collection(DeloitteNFModel.ProvidersId_Result)">
+          <Parameter Name="Fornecedorid" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="ProvidersInsert" ReturnType="Collection(Decimal)">
+          <Parameter Name="Nome" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="ProvidersUpdate" ReturnType="Collection(Decimal)">
+            <Parameter Name="FornecedorId" Mode="In" Type="Int32" />
+            <Parameter Name="Nome" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="stp_ProvidersInsert" ReturnType="Collection(DeloitteNFModel.stp_ProvidersInsert_Result)">
+          <Parameter Name="Nome" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="stp_ProvidersId" ReturnType="Collection(DeloitteNFModel.stp_ProvidersId_Result)">
+          <Parameter Name="Fornecedorid" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="stp_ProvidersUpdate" ReturnType="Collection(DeloitteNFModel.stp_ProvidersUpdate_Result)">
+            <Parameter Name="FornecedorId" Mode="In" Type="Int32" />
+            <Parameter Name="Nome" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="stp_ProvidersDelete">
+          <Parameter Name="Fornecedorid" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <AssociationSet Name="FK_Produtos_Fornecedores" Association="DeloitteNFModel.FK_Produtos_Fornecedores">
+            <End Role="Fornecedores" EntitySet="Fornecedores" />
+            <End Role="Produtos" EntitySet="Produtos" />
+          </AssociationSet>
+          <FunctionImport Name="stp_ProductsList" ReturnType="Collection(DeloitteNFModel.stp_ProductsList_Result)" />
+          <AssociationSet Name="FK_ItensNotasFiscais_Produtos" Association="DeloitteNFModel.FK_ItensNotasFiscais_Produtos">
+            <End Role="Produtos" EntitySet="Produtos" />
+            <End Role="ItensNotasFiscais" EntitySet="ItensNotasFiscais" />
+          </AssociationSet>
+          <FunctionImport Name="ProductsId" ReturnType="Collection(DeloitteNFModel.ProductsId_Result)">
+          <Parameter Name="Produtoid" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="ProductsInsert" ReturnType="Collection(Decimal)">
+            <Parameter Name="Nome" Mode="In" Type="String" />
+            <Parameter Name="Unidade" Mode="In" Type="String" />
+            <Parameter Name="Preco" Mode="In" Type="Decimal" />
+            <Parameter Name="Fornecedorid" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="ProductsUpdate" ReturnType="Collection(Decimal)">
+            <Parameter Name="Produtoid" Mode="In" Type="Int32" />
+            <Parameter Name="Nome" Mode="In" Type="String" />
+            <Parameter Name="Unidade" Mode="In" Type="String" />
+            <Parameter Name="Preco" Mode="In" Type="Decimal" />
+            <Parameter Name="Fornecedorid" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="stpProductsId" ReturnType="Collection(DeloitteNFModel.stpProductsId_Result)">
+          <Parameter Name="Produtoid" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="stp_ProductsUpdate" ReturnType="Collection(DeloitteNFModel.stp_ProductsUpdate_Result)">
+            <Parameter Name="Produtoid" Mode="In" Type="Int32" />
+            <Parameter Name="Nome" Mode="In" Type="String" />
+            <Parameter Name="Unidade" Mode="In" Type="String" />
+            <Parameter Name="Preco" Mode="In" Type="Decimal" />
+            <Parameter Name="Fornecedorid" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="stp_ProductsInsert" ReturnType="Collection(DeloitteNFModel.stp_ProductsInsert_Result)">
+            <Parameter Name="Nome" Mode="In" Type="String" />
+            <Parameter Name="Unidade" Mode="In" Type="String" />
+            <Parameter Name="Preco" Mode="In" Type="Decimal" />
+            <Parameter Name="Fornecedorid" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="stp_ProductsDelete">
+          <Parameter Name="Productid" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="stp_STPProductsDelete">
+          <Parameter Name="Productid" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="stp_InvoiceList" ReturnType="Collection(DeloitteNFModel.stp_InvoiceList_Result)" />
+          <FunctionImport Name="stp_InvoiceItemsInsert">
+            <Parameter Name="NotaFiscalid" Mode="In" Type="Int32" />
+            <Parameter Name="Produtoid" Mode="In" Type="Int32" />
+            <Parameter Name="Quantidade" Mode="In" Type="Int32" />
+            <Parameter Name="Preco" Mode="In" Type="Decimal" />
+          </FunctionImport>
+          <FunctionImport Name="stp_InvoiceItemList" ReturnType="Collection(DeloitteNFModel.stp_InvoiceItemList_Result)">
+          <Parameter Name="NotaFiscalid" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="InvoiceDelete">
+          <Parameter Name="NotaFiscalid" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="stp_InvoiceDelete">
+          <Parameter Name="NotaFiscalid" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="InvoiceEmitir">
+          <Parameter Name="NotaFiscalid" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="stp_InvoiceEmitir">
+          <Parameter Name="NotaFiscalid" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="InvoiceItemsDelete">
+          <Parameter Name="ItemNotaFiscalid" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="stp_InvoiceItemsDelete">
+          <Parameter Name="ItemNotaFiscalid" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="InvoiceListProductsSales" ReturnType="Collection(DeloitteNFModel.InvoiceListProductsSales_Result)" />
+          <FunctionImport Name="stp_InvoiceListProductsSales" ReturnType="Collection(DeloitteNFModel.stp_InvoiceListProductsSales_Result)" />
+        </EntityContainer>
+        <ComplexType Name="ClientsList_Result">
+          <Property Type="Int32" Name="Cliente_id" Nullable="false" />
+          <Property Type="String" Name="Nome" Nullable="true" MaxLength="1000" />
+          <Property Type="String" Name="Endereço" Nullable="true" MaxLength="1000" />
+          <Property Type="String" Name="Tipo" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="InvoiceList_Result">
+          <Property Type="Int32" Name="NotaFiscal_id" Nullable="false" />
+          <Property Type="Int32" Name="Cliente_id" Nullable="false" />
+          <Property Type="DateTime" Name="Data" Nullable="false" Precision="23" />
+          <Property Type="String" Name="Nome" Nullable="true" MaxLength="1000" />
+          <Property Type="String" Name="Endereço" Nullable="true" MaxLength="1000" />
+          <Property Type="Decimal" Name="TotalNota" Nullable="true" Precision="38" Scale="0" />
+        </ComplexType>
+        <ComplexType Name="ProductsList_Result">
+          <Property Type="String" Name="nomefornec" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="nomeprod" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="Unidade" Nullable="true" MaxLength="50" />
+          <Property Type="Decimal" Name="Preco" Nullable="false" Precision="18" Scale="0" />
+        </ComplexType>
+        <ComplexType Name="ProviderList_Result">
+          <Property Type="Int32" Name="Fornecedor_id" Nullable="false" />
+          <Property Type="String" Name="Nome" Nullable="true" MaxLength="500" />
+        </ComplexType>
+        <ComplexType Name="stp_ProviderSPList_Result">
+          <Property Type="Int32" Name="Fornecedor_id" Nullable="false" />
+          <Property Type="String" Name="Nome" Nullable="true" MaxLength="500" />
+        </ComplexType>
+        <ComplexType Name="stp_ClientesResList_Result">
+          <Property Type="Int32" Name="Cliente_id" Nullable="false" />
+          <Property Type="String" Name="Nome" Nullable="true" MaxLength="1000" />
+          <Property Type="String" Name="Endereço" Nullable="true" MaxLength="1000" />
+          <Property Type="String" Name="Tipo" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="InvoiceId_Result">
+          <Property Type="Int32" Name="NotaFiscal_id" Nullable="false" />
+          <Property Type="Int32" Name="Cliente_id" Nullable="false" />
+          <Property Type="DateTime" Name="Data" Nullable="false" Precision="23" />
+        </ComplexType>
+        <ComplexType Name="InvoiceItemList_Result">
+          <Property Type="Int32" Name="ItemNotaFiscal_id" Nullable="false" />
+          <Property Type="Int32" Name="NotaFiscal_id" Nullable="false" />
+          <Property Type="Int32" Name="Quantidade" Nullable="false" />
+          <Property Type="Decimal" Name="Total" Nullable="false" Precision="18" Scale="0" />
+        </ComplexType>
+        <ComplexType Name="stp_InvoiceInsert_Result">
+          <Property Name="Column1" Nullable="true" Precision="38" Scale="0" Type="Decimal" />
+        </ComplexType>
+        <ComplexType Name="stp_InvoiceInsertRes_Result">
+          <Property Name="NotaFiscal_Id" Nullable="true" Precision="38" Scale="0" Type="Decimal" />
+        </ComplexType>
+        <ComplexType Name="stp_InvoiceID_Result">
+          <Property Type="Int32" Name="NotaFiscal_id" Nullable="false" />
+          <Property Type="Int32" Name="Cliente_id" Nullable="false" />
+          <Property Type="DateTime" Name="Data" Nullable="false" Precision="23" />
+          <Property Type="String" Name="Nome" Nullable="true" MaxLength="1000" />
+        </ComplexType>
+        <ComplexType Name="stp_ClientsInsert_Result">
+          <Property Type="Decimal" Name="Cliente_Id" Nullable="true" Precision="38" Scale="0" />
+        </ComplexType>
+        <ComplexType Name="ClientsId_Result">
+          <Property Type="Int32" Name="Cliente_id" Nullable="false" />
+          <Property Type="String" Name="Nome" Nullable="true" MaxLength="1000" />
+          <Property Type="String" Name="Endereço" Nullable="true" MaxLength="1000" />
+          <Property Type="String" Name="Tipo" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="stp_ClientsId_Result">
+          <Property Type="Int32" Name="Cliente_id" Nullable="false" />
+          <Property Type="String" Name="Nome" Nullable="true" MaxLength="1000" />
+          <Property Type="String" Name="Endereço" Nullable="true" MaxLength="1000" />
+          <Property Type="String" Name="Tipo" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="stp_ClientsUpdate_Result">
+          <Property Type="Decimal" Name="Cliente_Id" Nullable="true" Precision="38" Scale="0" />
+        </ComplexType>
+        <ComplexType Name="stp_BestCostumers_Result">
+          <Property Type="String" Name="nome" Nullable="true" MaxLength="1000" />
+          <Property Type="Decimal" Name="Total" Nullable="true" Precision="38" Scale="0" />
+        </ComplexType>
+        <ComplexType Name="InvoiceListBestCustomers_Result">
+          <Property Type="String" Name="nome" Nullable="true" MaxLength="1000" />
+          <Property Type="Decimal" Name="Total" Nullable="true" Precision="38" Scale="0" />
+        </ComplexType>
+        <ComplexType Name="stp_BestCustomers_Result">
+          <Property Type="String" Name="nome" Nullable="true" MaxLength="1000" />
+          <Property Type="Decimal" Name="Total" Nullable="true" Precision="38" Scale="0" />
+        </ComplexType>
+        <ComplexType Name="ProvidersId_Result">
+          <Property Type="Int32" Name="Fornecedor_id" Nullable="false" />
+          <Property Type="String" Name="Nome" Nullable="true" MaxLength="500" />
+        </ComplexType>
+        <ComplexType Name="stp_ProvidersInsert_Result">
+          <Property Type="Decimal" Name="Fornecedor_Id" Nullable="true" Precision="38" Scale="0" />
+        </ComplexType>
+        <ComplexType Name="stp_ProvidersId_Result">
+          <Property Type="Int32" Name="Fornecedor_id" Nullable="false" />
+          <Property Type="String" Name="Nome" Nullable="true" MaxLength="500" />
+        </ComplexType>
+        <ComplexType Name="stp_ProvidersUpdate_Result">
+          <Property Type="Decimal" Name="Fornecedor_Id" Nullable="true" Precision="38" Scale="0" />
+        </ComplexType>
+        <Association Name="FK_Produtos_Fornecedores">
+          <End Type="DeloitteNFModel.Fornecedores" Role="Fornecedores" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="DeloitteNFModel.Produtos" Role="Produtos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Fornecedores">
+              <PropertyRef Name="Fornecedor_id" />
+            </Principal>
+            <Dependent Role="Produtos">
+              <PropertyRef Name="Fornecedor_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <ComplexType Name="stp_ProductsList_Result">
+          <Property Type="String" Name="nomefornec" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="nomeprod" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="Unidade" Nullable="true" MaxLength="50" />
+          <Property Type="Decimal" Name="Preco" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="Int32" Name="Produto_id" Nullable="false" />
+        </ComplexType>
+        <Association Name="FK_ItensNotasFiscais_Produtos">
+          <End Type="DeloitteNFModel.Produtos" Role="Produtos" Multiplicity="1" />
+          <End Type="DeloitteNFModel.ItensNotasFiscais" Role="ItensNotasFiscais" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Produtos">
+              <PropertyRef Name="Produto_id" />
+            </Principal>
+            <Dependent Role="ItensNotasFiscais">
+              <PropertyRef Name="Produto_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <ComplexType Name="ProductsId_Result">
+          <Property Type="Int32" Name="Produto_id" Nullable="false" />
+          <Property Type="String" Name="nomeprod" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="Unidade" Nullable="true" MaxLength="50" />
+          <Property Type="Decimal" Name="Preco" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="Int32" Name="Fornecedor_id" Nullable="true" />
+          <Property Type="String" Name="nomefornec" Nullable="true" MaxLength="500" />
+        </ComplexType>
+        <ComplexType Name="stpProductsId_Result">
+          <Property Type="Int32" Name="Produto_id" Nullable="false" />
+          <Property Type="String" Name="nomeprod" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="Unidade" Nullable="true" MaxLength="50" />
+          <Property Type="Decimal" Name="Preco" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="Int32" Name="Fornecedor_id" Nullable="true" />
+          <Property Type="String" Name="nomefornec" Nullable="true" MaxLength="500" />
+        </ComplexType>
+        <ComplexType Name="stp_ProductsUpdate_Result">
+          <Property Type="Decimal" Name="Produto_id" Nullable="true" Precision="38" Scale="0" />
+        </ComplexType>
+        <ComplexType Name="stp_ProductsInsert_Result">
+          <Property Type="Decimal" Name="Produto_Id" Nullable="true" Precision="38" Scale="0" />
+        </ComplexType>
+        <ComplexType Name="stp_InvoiceList_Result">
+          <Property Type="Int32" Name="NotaFiscal_id" Nullable="false" />
+          <Property Type="Int32" Name="Cliente_id" Nullable="false" />
+          <Property Type="DateTime" Name="Data" Nullable="false" Precision="23" />
+          <Property Type="String" Name="Nome" Nullable="true" MaxLength="1000" />
+          <Property Type="String" Name="Endereço" Nullable="true" MaxLength="1000" />
+          <Property Type="Decimal" Name="TotalNota" Nullable="false" Precision="38" Scale="0" />
+          <Property Type="Boolean" Name="Emitida" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="stp_InvoiceItemList_Result">
+          <Property Type="Int32" Name="ItemNotaFiscal_id" Nullable="false" />
+          <Property Type="Int32" Name="NotaFiscal_id" Nullable="false" />
+          <Property Type="Int32" Name="Produto_id" Nullable="false" />
+          <Property Type="Int32" Name="Quantidade" Nullable="false" />
+          <Property Type="Decimal" Name="Total" Nullable="false" Precision="18" Scale="0" />
+          <Property Type="String" Name="Nome" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="Unidade" Nullable="true" MaxLength="50" />
+          <Property Type="Decimal" Name="Preco" Nullable="true" Precision="18" Scale="5" />
+        </ComplexType>
+        <ComplexType Name="InvoiceListProductsSales_Result">
+          <Property Type="String" Name="Nome" Nullable="true" MaxLength="500" />
+          <Property Type="Int32" Name="Produto_id" Nullable="false" />
+          <Property Type="Int32" Name="UnidadesVendidas" Nullable="true" />
+          <Property Type="Decimal" Name="ValorTotal" Nullable="true" Precision="38" Scale="5" />
+        </ComplexType>
+        <ComplexType Name="stp_InvoiceProductsSales_Result">
+          <Property Type="String" Name="Nome" Nullable="true" MaxLength="500" />
+          <Property Type="Int32" Name="Produto_id" Nullable="false" />
+          <Property Type="Int32" Name="UnidadesVendidas" Nullable="true" />
+          <Property Type="Decimal" Name="ValorTotal" Nullable="true" Precision="38" Scale="5" />
+        </ComplexType>
+        <ComplexType Name="stp_InvoiceListProductsSales_Result">
+          <Property Type="String" Name="Nome" Nullable="true" MaxLength="500" />
+          <Property Type="Int32" Name="Produto_id" Nullable="false" />
+          <Property Type="Int32" Name="UnidadesVendidas" Nullable="true" />
+          <Property Type="Decimal" Name="ValorTotal" Nullable="true" Precision="38" Scale="5" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DeloitteNFModelStoreContainer" CdmEntityContainer="DeloitteNFEntities">
+          <EntitySetMapping Name="Clientes">
+            <EntityTypeMapping TypeName="DeloitteNFModel.Clientes">
+              <MappingFragment StoreEntitySet="Clientes">
+                <ScalarProperty Name="Cliente_id" ColumnName="Cliente_id" />
+                <ScalarProperty Name="Nome" ColumnName="Nome" />
+                <ScalarProperty Name="Endereço" ColumnName="Endereço" />
+                <ScalarProperty Name="Tipo" ColumnName="Tipo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Fornecedores">
+            <EntityTypeMapping TypeName="DeloitteNFModel.Fornecedores">
+              <MappingFragment StoreEntitySet="Fornecedores">
+                <ScalarProperty Name="Fornecedor_id" ColumnName="Fornecedor_id" />
+                <ScalarProperty Name="Nome" ColumnName="Nome" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ItensNotasFiscais">
+            <EntityTypeMapping TypeName="DeloitteNFModel.ItensNotasFiscais">
+              <MappingFragment StoreEntitySet="ItensNotasFiscais">
+                <ScalarProperty Name="Produto_id" ColumnName="Produto_id" />
+                <ScalarProperty Name="ItemNotaFiscal_id" ColumnName="ItemNotaFiscal_id" />
+                <ScalarProperty Name="NotaFiscal_id" ColumnName="NotaFiscal_id" />
+                <ScalarProperty Name="Quantidade" ColumnName="Quantidade" />
+                <ScalarProperty Name="Total" ColumnName="Total" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="NotasFiscais">
+            <EntityTypeMapping TypeName="DeloitteNFModel.NotasFiscais">
+              <MappingFragment StoreEntitySet="NotasFiscais">
+                <ScalarProperty Name="Emitida" ColumnName="Emitida" />
+                <ScalarProperty Name="NotaFiscal_id" ColumnName="NotaFiscal_id" />
+                <ScalarProperty Name="Cliente_id" ColumnName="Cliente_id" />
+                <ScalarProperty Name="Data" ColumnName="Data" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Produtos">
+            <EntityTypeMapping TypeName="DeloitteNFModel.Produtos">
+              <MappingFragment StoreEntitySet="Produtos">
+                <ScalarProperty Name="Fornecedor_id" ColumnName="Fornecedor_id" />
+                <ScalarProperty Name="Preco" ColumnName="Preco" />
+                <ScalarProperty Name="Produto_id" ColumnName="Produto_id" />
+                <ScalarProperty Name="Nome" ColumnName="Nome" />
+                <ScalarProperty Name="Unidade" ColumnName="Unidade" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="ClientsList" FunctionName="DeloitteNFModel.Store.ClientsList">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DeloitteNFModel.ClientsList_Result">
+                <ScalarProperty Name="Cliente_id" ColumnName="Cliente_id" />
+                <ScalarProperty Name="Nome" ColumnName="Nome" />
+                <ScalarProperty Name="Endereço" ColumnName="Endereço" />
+                <ScalarProperty Name="Tipo" ColumnName="Tipo" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="InvoiceList" FunctionName="DeloitteNFModel.Store.InvoiceList">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DeloitteNFModel.InvoiceList_Result">
+                <ScalarProperty Name="NotaFiscal_id" ColumnName="NotaFiscal_id" />
+                <ScalarProperty Name="Cliente_id" ColumnName="Cliente_id" />
+                <ScalarProperty Name="Data" ColumnName="Data" />
+                <ScalarProperty Name="Nome" ColumnName="Nome" />
+                <ScalarProperty Name="Endereço" ColumnName="Endereço" />
+                <ScalarProperty Name="TotalNota" ColumnName="TotalNota" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="ProductsList" FunctionName="DeloitteNFModel.Store.ProductsList">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DeloitteNFModel.ProductsList_Result">
+                <ScalarProperty Name="nomefornec" ColumnName="nomefornec" />
+                <ScalarProperty Name="nomeprod" ColumnName="nomeprod" />
+                <ScalarProperty Name="Unidade" ColumnName="Unidade" />
+                <ScalarProperty Name="Preco" ColumnName="Preco" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="ProviderList" FunctionName="DeloitteNFModel.Store.ProviderList">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DeloitteNFModel.ProviderList_Result">
+                <ScalarProperty Name="Fornecedor_id" ColumnName="Fornecedor_id" />
+                <ScalarProperty Name="Nome" ColumnName="Nome" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="stp_ClientesList" FunctionName="DeloitteNFModel.Store.ClientsList" />
+          <FunctionImportMapping FunctionImportName="stp_ProviderSPList" FunctionName="DeloitteNFModel.Store.ProviderList">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DeloitteNFModel.stp_ProviderSPList_Result">
+                <ScalarProperty Name="Fornecedor_id" ColumnName="Fornecedor_id" />
+                <ScalarProperty Name="Nome" ColumnName="Nome" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="stp_ClientesResList" FunctionName="DeloitteNFModel.Store.ClientsList">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DeloitteNFModel.stp_ClientesResList_Result">
+                <ScalarProperty Name="Cliente_id" ColumnName="Cliente_id" />
+                <ScalarProperty Name="Nome" ColumnName="Nome" />
+                <ScalarProperty Name="Endereço" ColumnName="Endereço" />
+                <ScalarProperty Name="Tipo" ColumnName="Tipo" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="InvoiceId" FunctionName="DeloitteNFModel.Store.InvoiceId">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DeloitteNFModel.InvoiceId_Result">
+                <ScalarProperty Name="NotaFiscal_id" ColumnName="NotaFiscal_id" />
+                <ScalarProperty Name="Cliente_id" ColumnName="Cliente_id" />
+                <ScalarProperty Name="Data" ColumnName="Data" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="InvoiceItemList" FunctionName="DeloitteNFModel.Store.InvoiceItemList">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DeloitteNFModel.InvoiceItemList_Result">
+                <ScalarProperty Name="ItemNotaFiscal_id" ColumnName="ItemNotaFiscal_id" />
+                <ScalarProperty Name="NotaFiscal_id" ColumnName="NotaFiscal_id" />
+                <ScalarProperty Name="Quantidade" ColumnName="Quantidade" />
+                <ScalarProperty Name="Total" ColumnName="Total" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="InvoiceItemsInsert" FunctionName="DeloitteNFModel.Store.InvoiceItemsInsert" />
+          <FunctionImportMapping FunctionImportName="stp_InvoiceInsert" FunctionName="DeloitteNFModel.Store.InvoiceInsert">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DeloitteNFModel.stp_InvoiceInsertRes_Result">
+                <ScalarProperty Name="NotaFiscal_Id" ColumnName="NotaFiscal_Id" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="stp_InvoiceID" FunctionName="DeloitteNFModel.Store.InvoiceId">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DeloitteNFModel.stp_InvoiceID_Result">
+                <ScalarProperty Name="NotaFiscal_id" ColumnName="NotaFiscal_id" />
+                <ScalarProperty Name="Cliente_id" ColumnName="Cliente_id" />
+                <ScalarProperty Name="Data" ColumnName="Data" />
+                <ScalarProperty Name="Nome" ColumnName="Nome" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="ClientsInsert" FunctionName="DeloitteNFModel.Store.ClientsInsert" />
+          <FunctionImportMapping FunctionImportName="stp_ClientsInsert" FunctionName="DeloitteNFModel.Store.ClientsInsert">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DeloitteNFModel.stp_ClientsInsert_Result">
+                <ScalarProperty Name="Cliente_Id" ColumnName="Cliente_Id" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="ClientsId" FunctionName="DeloitteNFModel.Store.ClientsId">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DeloitteNFModel.ClientsId_Result">
+                <ScalarProperty Name="Cliente_id" ColumnName="Cliente_id" />
+                <ScalarProperty Name="Nome" ColumnName="Nome" />
+                <ScalarProperty Name="Endereço" ColumnName="Endereço" />
+                <ScalarProperty Name="Tipo" ColumnName="Tipo" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="stp_ClientsId" FunctionName="DeloitteNFModel.Store.ClientsId">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DeloitteNFModel.stp_ClientsId_Result">
+                <ScalarProperty Name="Cliente_id" ColumnName="Cliente_id" />
+                <ScalarProperty Name="Nome" ColumnName="Nome" />
+                <ScalarProperty Name="Endereço" ColumnName="Endereço" />
+                <ScalarProperty Name="Tipo" ColumnName="Tipo" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="ClientsUpdate" FunctionName="DeloitteNFModel.Store.ClientsUpdate" />
+          <FunctionImportMapping FunctionImportName="stp_ClientsUpdate" FunctionName="DeloitteNFModel.Store.ClientsUpdate">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DeloitteNFModel.stp_ClientsUpdate_Result">
+                <ScalarProperty Name="Cliente_Id" ColumnName="Cliente_Id" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="ClientsDelete" FunctionName="DeloitteNFModel.Store.ClientsDelete" />
+          <FunctionImportMapping FunctionImportName="stp_ClientsDelete" FunctionName="DeloitteNFModel.Store.ClientsDelete" />
+          <FunctionImportMapping FunctionImportName="InvoiceListBestCustomers" FunctionName="DeloitteNFModel.Store.InvoiceListBestCustomers">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DeloitteNFModel.InvoiceListBestCustomers_Result">
+                <ScalarProperty Name="nome" ColumnName="nome" />
+                <ScalarProperty Name="Total" ColumnName="Total" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="stp_BestCustomers" FunctionName="DeloitteNFModel.Store.InvoiceListBestCustomers">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DeloitteNFModel.stp_BestCustomers_Result">
+                <ScalarProperty Name="nome" ColumnName="nome" />
+                <ScalarProperty Name="Total" ColumnName="Total" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="ProvidersDelete" FunctionName="DeloitteNFModel.Store.ProvidersDelete" />
+          <FunctionImportMapping FunctionImportName="ProvidersId" FunctionName="DeloitteNFModel.Store.ProvidersId">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DeloitteNFModel.ProvidersId_Result">
+                <ScalarProperty Name="Fornecedor_id" ColumnName="Fornecedor_id" />
+                <ScalarProperty Name="Nome" ColumnName="Nome" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="ProvidersInsert" FunctionName="DeloitteNFModel.Store.ProvidersInsert" />
+          <FunctionImportMapping FunctionImportName="ProvidersUpdate" FunctionName="DeloitteNFModel.Store.ProvidersUpdate" />
+          <FunctionImportMapping FunctionImportName="stp_ProvidersInsert" FunctionName="DeloitteNFModel.Store.ProvidersInsert">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DeloitteNFModel.stp_ProvidersInsert_Result">
+                <ScalarProperty Name="Fornecedor_Id" ColumnName="Fornecedor_Id" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="stp_ProvidersId" FunctionName="DeloitteNFModel.Store.ProvidersId">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DeloitteNFModel.stp_ProvidersId_Result">
+                <ScalarProperty Name="Fornecedor_id" ColumnName="Fornecedor_id" />
+                <ScalarProperty Name="Nome" ColumnName="Nome" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="stp_ProvidersUpdate" FunctionName="DeloitteNFModel.Store.ProvidersUpdate">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DeloitteNFModel.stp_ProvidersUpdate_Result">
+                <ScalarProperty Name="Fornecedor_Id" ColumnName="Fornecedor_Id" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="stp_ProvidersDelete" FunctionName="DeloitteNFModel.Store.ProvidersDelete" />
+          <FunctionImportMapping FunctionImportName="stp_ProductsList" FunctionName="DeloitteNFModel.Store.ProductsList">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DeloitteNFModel.stp_ProductsList_Result">
+                <ScalarProperty Name="nomefornec" ColumnName="nomefornec" />
+                <ScalarProperty Name="nomeprod" ColumnName="nomeprod" />
+                <ScalarProperty Name="Unidade" ColumnName="Unidade" />
+                <ScalarProperty Name="Preco" ColumnName="Preco" />
+                <ScalarProperty Name="Produto_id" ColumnName="Produto_id" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="ProductsId" FunctionName="DeloitteNFModel.Store.ProductsId">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DeloitteNFModel.ProductsId_Result">
+                <ScalarProperty Name="Produto_id" ColumnName="Produto_id" />
+                <ScalarProperty Name="nomeprod" ColumnName="nomeprod" />
+                <ScalarProperty Name="Unidade" ColumnName="Unidade" />
+                <ScalarProperty Name="Preco" ColumnName="Preco" />
+                <ScalarProperty Name="Fornecedor_id" ColumnName="Fornecedor_id" />
+                <ScalarProperty Name="nomefornec" ColumnName="nomefornec" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="ProductsInsert" FunctionName="DeloitteNFModel.Store.ProductsInsert" />
+          <FunctionImportMapping FunctionImportName="ProductsUpdate" FunctionName="DeloitteNFModel.Store.ProductsUpdate" />
+          <FunctionImportMapping FunctionImportName="stpProductsId" FunctionName="DeloitteNFModel.Store.ProductsId">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DeloitteNFModel.stpProductsId_Result">
+                <ScalarProperty Name="Produto_id" ColumnName="Produto_id" />
+                <ScalarProperty Name="nomeprod" ColumnName="nomeprod" />
+                <ScalarProperty Name="Unidade" ColumnName="Unidade" />
+                <ScalarProperty Name="Preco" ColumnName="Preco" />
+                <ScalarProperty Name="Fornecedor_id" ColumnName="Fornecedor_id" />
+                <ScalarProperty Name="nomefornec" ColumnName="nomefornec" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="stp_ProductsUpdate" FunctionName="DeloitteNFModel.Store.ProductsUpdate">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DeloitteNFModel.stp_ProductsUpdate_Result">
+                <ScalarProperty Name="Produto_id" ColumnName="Produto_id" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="stp_ProductsInsert" FunctionName="DeloitteNFModel.Store.ProductsInsert">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DeloitteNFModel.stp_ProductsInsert_Result">
+                <ScalarProperty Name="Produto_Id" ColumnName="Produto_Id" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="stp_ProductsDelete" FunctionName="DeloitteNFModel.Store.ProductsDelete" />
+          <FunctionImportMapping FunctionImportName="stp_STPProductsDelete" FunctionName="DeloitteNFModel.Store.ProductsDelete" />
+          <FunctionImportMapping FunctionImportName="stp_InvoiceList" FunctionName="DeloitteNFModel.Store.InvoiceList">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DeloitteNFModel.stp_InvoiceList_Result">
+                <ScalarProperty Name="NotaFiscal_id" ColumnName="NotaFiscal_id" />
+                <ScalarProperty Name="Cliente_id" ColumnName="Cliente_id" />
+                <ScalarProperty Name="Data" ColumnName="Data" />
+                <ScalarProperty Name="Nome" ColumnName="Nome" />
+                <ScalarProperty Name="Endereço" ColumnName="Endereço" />
+                <ScalarProperty Name="TotalNota" ColumnName="TotalNota" />
+                <ScalarProperty Name="Emitida" ColumnName="Emitida" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="stp_InvoiceItemsInsert" FunctionName="DeloitteNFModel.Store.InvoiceItemsInsert" />
+          <FunctionImportMapping FunctionImportName="stp_InvoiceItemList" FunctionName="DeloitteNFModel.Store.InvoiceItemList">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DeloitteNFModel.stp_InvoiceItemList_Result">
+                <ScalarProperty Name="ItemNotaFiscal_id" ColumnName="ItemNotaFiscal_id" />
+                <ScalarProperty Name="NotaFiscal_id" ColumnName="NotaFiscal_id" />
+                <ScalarProperty Name="Produto_id" ColumnName="Produto_id" />
+                <ScalarProperty Name="Quantidade" ColumnName="Quantidade" />
+                <ScalarProperty Name="Total" ColumnName="Total" />
+                <ScalarProperty Name="Nome" ColumnName="Nome" />
+                <ScalarProperty Name="Unidade" ColumnName="Unidade" />
+                <ScalarProperty Name="Preco" ColumnName="Preco" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="InvoiceDelete" FunctionName="DeloitteNFModel.Store.InvoiceDelete" />
+          <FunctionImportMapping FunctionImportName="stp_InvoiceDelete" FunctionName="DeloitteNFModel.Store.InvoiceDelete" />
+          <FunctionImportMapping FunctionImportName="InvoiceEmitir" FunctionName="DeloitteNFModel.Store.InvoiceEmitir" />
+          <FunctionImportMapping FunctionImportName="stp_InvoiceEmitir" FunctionName="DeloitteNFModel.Store.InvoiceEmitir" />
+          <FunctionImportMapping FunctionImportName="InvoiceItemsDelete" FunctionName="DeloitteNFModel.Store.InvoiceItemsDelete" />
+          <FunctionImportMapping FunctionImportName="stp_InvoiceItemsDelete" FunctionName="DeloitteNFModel.Store.InvoiceItemsDelete" />
+          <FunctionImportMapping FunctionImportName="InvoiceListProductsSales" FunctionName="DeloitteNFModel.Store.InvoiceListProductsSales">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DeloitteNFModel.InvoiceListProductsSales_Result">
+                <ScalarProperty Name="Nome" ColumnName="Nome" />
+                <ScalarProperty Name="Produto_id" ColumnName="Produto_id" />
+                <ScalarProperty Name="UnidadesVendidas" ColumnName="UnidadesVendidas" />
+                <ScalarProperty Name="ValorTotal" ColumnName="ValorTotal" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="stp_InvoiceListProductsSales" FunctionName="DeloitteNFModel.Store.InvoiceListProductsSales">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DeloitteNFModel.stp_InvoiceListProductsSales_Result">
+                <ScalarProperty Name="Nome" ColumnName="Nome" />
+                <ScalarProperty Name="Produto_id" ColumnName="Produto_id" />
+                <ScalarProperty Name="UnidadesVendidas" ColumnName="UnidadesVendidas" />
+                <ScalarProperty Name="ValorTotal" ColumnName="ValorTotal" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
